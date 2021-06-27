@@ -1,2 +1,2 @@
-// export * from './large';
+export * from './large';
 export * from './small';
