@@ -1,9 +1,9 @@
 import React from 'react';
-import {StyleSheet, View, Text, ImageBackground} from 'react-native';
+import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {ILBackground, ILLogo} from '../../assets';
 import {Button, Gap} from '../../components';
 
-const GetStarted = () => {
+const GetStarted = ({navigation}) => {
   return (
     <ImageBackground source={ILBackground} style={styles.page}>
       <View>
@@ -14,9 +14,14 @@ const GetStarted = () => {
         </Text>
       </View>
       <View>
-        <Button title="Get Started"></Button>
+        <Button
+          onPress={() => navigation.navigate('Register')}
+          title="Get Started"></Button>
         <Gap height={16}></Gap>
-        <Button title="Sign In" type="secondary"></Button>
+        <Button
+          onPress={() => navigation.replace('Login')}
+          title="Sign In"
+          type="secondary"></Button>
       </View>
     </ImageBackground>
   );
