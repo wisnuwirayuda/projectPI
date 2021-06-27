@@ -1,3 +1,3 @@
-import IBack from './Back.svg';
+import IBackDark from './back-dark.svg';
 
-export {IBack};
+export {IBackDark};
