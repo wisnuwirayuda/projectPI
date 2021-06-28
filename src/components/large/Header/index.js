@@ -3,11 +3,11 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Button, Gap} from '../..';
 import {colors, fonts} from '../../../utils';
 
-const Header = ({onPress}) => {
+const Header = ({onPress, title}) => {
   return (
     <View style={styles.container}>
       <Button type="icon-only" icon="back-dark" onPress={onPress}></Button>
-      <Text style={styles.title}>Register</Text>
+      <Text style={styles.title}>{title}</Text>
       <Gap width={24}></Gap>
     </View>
   );

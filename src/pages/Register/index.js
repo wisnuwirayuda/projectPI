@@ -6,7 +6,7 @@ import {colors} from '../../utils';
 const Register = ({navigation}) => {
   return (
     <View style={styles.container}>
-      <Header onPress={() => navigation.goBack()}></Header>
+      <Header onPress={() => navigation.goBack()} title="Register"></Header>
       <View style={styles.content}>
         <Input label="Full Name" placeholder="Enter your full name"></Input>
         <Gap height={24}></Gap>
@@ -20,7 +20,9 @@ const Register = ({navigation}) => {
         <Gap height={24}></Gap>
         <Input label="Password" placeholder="Enter your password"></Input>
         <Gap height={40}></Gap>
-        <Button title="Continue"></Button>
+        <Button
+          title="Continue"
+          onPress={() => navigation.navigate('UploadPhoto')}></Button>
       </View>
     </View>
   );
