@@ -10,6 +10,10 @@ const Register = ({navigation}) => {
       <View style={styles.content}>
         <Input label="Full Name" placeholder="Enter your full name"></Input>
         <Gap height={24}></Gap>
+        <Input
+          label="Phone Number"
+          placeholder="Enter your phone number"></Input>
+        <Gap height={24}></Gap>
         <Input label="Occupation" placeholder="Enter your occupation"></Input>
         <Gap height={24}></Gap>
         <Input label="Email" placeholder="Enter your email"></Input>

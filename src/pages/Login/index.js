@@ -2,6 +2,7 @@ import React from 'react';
 import {StyleSheet, Text, View} from 'react-native';
 import {ILLogo} from '../../assets';
 import {Button, Gap, Input, Link} from '../../components';
+import {colors, fonts} from '../../utils';
 
 const Login = () => {
   return (
@@ -38,13 +39,13 @@ const styles = StyleSheet.create({
     marginVertical: 40,
   },
   title: {
-    fontFamily: 'Nunito-SemiBold',
+    fontFamily: fonts.primary[600],
     fontSize: 20,
-    color: '#112340',
+    color: colors.secondary,
   },
   subTitle: {
-    fontFamily: 'Nunito-Regular',
+    fontFamily: fonts.primary[400],
     fontSize: 16,
-    color: '#7D8797',
+    color: colors.text.secondary,
   },
 });
