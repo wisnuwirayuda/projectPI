@@ -11,13 +11,15 @@ import {
   News,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {BottomNavigator} from '../components';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 const MainApp = () => {
   return (
-    <Tab.Navigator>
+    <Tab.Navigator
+      tabBar={props => <BottomNavigator {...props}></BottomNavigator>}>
       <Tab.Screen name="Doctor" component={Doctor}></Tab.Screen>
       <Tab.Screen name="Messages" component={Messages}></Tab.Screen>
       <Tab.Screen name="News" component={News}></Tab.Screen>
@@ -27,7 +29,7 @@ const MainApp = () => {
 
 const Router = () => {
   return (
-    <Stack.Navigator initialRouteName="Splash">
+    <Stack.Navigator initialRouteName="MainApp">
       <Stack.Screen
         name="Splash"
         component={Splash}
