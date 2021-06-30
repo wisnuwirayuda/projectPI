@@ -1,6 +1,7 @@
 const mainColors = {
   blue1: '#487CFF',
   blue2: '#0BCAD4',
+  blue3: '#EDFCFD',
   dark1: '#112340',
   dark2: '#2B5DDB',
   gray1: '#7D8797',
@@ -33,4 +34,5 @@ export const colors = {
     inActive: mainColors.dark2,
   },
   border: mainColors.gray2,
+  card: mainColors.blue3,
 };
