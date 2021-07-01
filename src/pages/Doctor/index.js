@@ -13,32 +13,56 @@ const Doctor = () => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
-        <HomeProfile></HomeProfile>
-        <Gap height={30}></Gap>
-        <Text style={styles.textCategory}>
-          Mau konsultasi dengan siapa hari ini?
-        </Text>
-        <Gap height={16}></Gap>
-        <View style={styles.wrapperScroll}>
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={{flexDirection: 'row'}}>
-              <Gap width={16}></Gap>
-              <DoctorCategory category="umum"></DoctorCategory>
-              <DoctorCategory category="psikiater"></DoctorCategory>
-              <DoctorCategory category="obat"></DoctorCategory>
-              <DoctorCategory category="anak"></DoctorCategory>
-              <Gap width={6}></Gap>
-            </View>
-          </ScrollView>
-        </View>
-        <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-        <RatedDoctor></RatedDoctor>
-        <RatedDoctor></RatedDoctor>
-        <RatedDoctor></RatedDoctor>
-        <Text style={styles.sectionLabel}>Good News</Text>
-        <NewsItem></NewsItem>
-        <NewsItem></NewsItem>
-        <NewsItem></NewsItem>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <View style={styles.wrapperSection}>
+            <Gap height={30}></Gap>
+            <HomeProfile></HomeProfile>
+            <Gap height={30}></Gap>
+            <Text style={styles.textCategory}>
+              Mau konsultasi dengan siapa hari ini?
+            </Text>
+          </View>
+          <Gap height={16}></Gap>
+          <View style={styles.wrapperScroll}>
+            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+              <View style={{flexDirection: 'row'}}>
+                <Gap width={32}></Gap>
+                <DoctorCategory category="umum"></DoctorCategory>
+                <DoctorCategory category="psikiater"></DoctorCategory>
+                <DoctorCategory category="obat"></DoctorCategory>
+                <DoctorCategory category="anak"></DoctorCategory>
+                <Gap width={22}></Gap>
+              </View>
+            </ScrollView>
+          </View>
+          <View style={styles.wrapperSection}>
+            <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
+            <Gap height={16}></Gap>
+            <RatedDoctor
+              list="doctor1"
+              name="Alexa Rachel"
+              category="Pediatrician"></RatedDoctor>
+            <Gap height={16}></Gap>
+            <RatedDoctor
+              list="doctor2"
+              name="Sunny Frank"
+              category="Dentist"></RatedDoctor>
+            <Gap height={16}></Gap>
+            <RatedDoctor
+              list="doctor3"
+              name="Poe Minn"
+              category="Podiatrist"></RatedDoctor>
+            <Gap height={30}></Gap>
+            <Text style={styles.sectionLabel}>Good News</Text>
+          </View>
+          <Gap height={16}></Gap>
+          <NewsItem list="news1"></NewsItem>
+          <Gap height={16}></Gap>
+          <NewsItem list="news2"></NewsItem>
+          <Gap height={16}></Gap>
+          <NewsItem list="news3"></NewsItem>
+          <Gap height={30}></Gap>
+        </ScrollView>
       </View>
     </View>
   );
@@ -48,8 +72,6 @@ export default Doctor;
 
 const styles = StyleSheet.create({
   container: {
-    paddingHorizontal: 16,
-    paddingVertical: 30,
     backgroundColor: colors.white,
     flex: 1,
     borderBottomRightRadius: 20,
@@ -58,6 +80,9 @@ const styles = StyleSheet.create({
   page: {
     backgroundColor: colors.primary,
     flex: 1,
+  },
+  wrapperSection: {
+    paddingHorizontal: 16,
   },
   textCategory: {
     fontSize: 20,

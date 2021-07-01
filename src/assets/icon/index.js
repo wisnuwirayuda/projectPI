@@ -7,6 +7,7 @@ import IMessages from './messages.svg';
 import IMessagesActive from './messages-active.svg';
 import INews from './news.svg';
 import INewsActive from './news-active.svg';
+import IRatedDoctor from './rated-doctor.svg';
 
 export {
   IBackDark,
@@ -18,4 +19,5 @@ export {
   IMessagesActive,
   INews,
   INewsActive,
+  IRatedDoctor,
 };

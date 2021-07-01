@@ -4,7 +4,7 @@ import {View, Text, StyleSheet} from 'react-native';
 const News = () => {
   return (
     <View>
-      <Text>News Page</Text>
+      <Text>Is it safe to stay at home during coronavirus?</Text>
     </View>
   );
 };
