@@ -6,11 +6,11 @@ import {Gap} from '../../';
 
 const DoctorCategory = ({category}) => {
   const Icon = () => {
-    if (category === 'umum') {
+    if (category === 'dokter umum') {
       return <ILCatUmum></ILCatUmum>;
-    } else if (category === 'anak') {
+    } else if (category === 'dokter anak') {
       return <ILCatAnak></ILCatAnak>;
-    } else if (category === 'obat') {
+    } else if (category === 'dokter obat') {
       return <ILCatObat></ILCatObat>;
     } else if (category === 'psikiater') {
       return <ILCatPsikiater></ILCatPsikiater>;

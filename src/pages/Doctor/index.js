@@ -8,61 +8,54 @@ import {
 } from '../../components';
 import {Gap} from '../../components';
 import {fonts, colors} from '../../utils';
+import {JSONCategoryDoctor} from '../../assets';
 
 const Doctor = () => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
-        <ScrollView showsVerticalScrollIndicator={false}>
-          <View style={styles.wrapperSection}>
-            <Gap height={30}></Gap>
-            <HomeProfile></HomeProfile>
-            <Gap height={30}></Gap>
-            <Text style={styles.textCategory}>
-              Mau konsultasi dengan siapa hari ini?
-            </Text>
-          </View>
-          <Gap height={16}></Gap>
-          <View style={styles.wrapperScroll}>
-            <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-              <View style={{flexDirection: 'row'}}>
-                <Gap width={32}></Gap>
-                <DoctorCategory category="umum"></DoctorCategory>
-                <DoctorCategory category="psikiater"></DoctorCategory>
-                <DoctorCategory category="obat"></DoctorCategory>
-                <DoctorCategory category="anak"></DoctorCategory>
-                <Gap width={22}></Gap>
-              </View>
-            </ScrollView>
-          </View>
-          <View style={styles.wrapperSection}>
-            <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-            <Gap height={16}></Gap>
-            <RatedDoctor
-              list="doctor1"
-              name="Alexa Rachel"
-              category="Pediatrician"></RatedDoctor>
-            <Gap height={16}></Gap>
-            <RatedDoctor
-              list="doctor2"
-              name="Sunny Frank"
-              category="Dentist"></RatedDoctor>
-            <Gap height={16}></Gap>
-            <RatedDoctor
-              list="doctor3"
-              name="Poe Minn"
-              category="Podiatrist"></RatedDoctor>
-            <Gap height={30}></Gap>
-            <Text style={styles.sectionLabel}>Good News</Text>
-          </View>
-          <Gap height={16}></Gap>
-          <NewsItem list="news1"></NewsItem>
-          <Gap height={16}></Gap>
-          <NewsItem list="news2"></NewsItem>
-          <Gap height={16}></Gap>
-          <NewsItem list="news3"></NewsItem>
+        <View style={styles.wrapperSection}>
           <Gap height={30}></Gap>
-        </ScrollView>
+          <HomeProfile></HomeProfile>
+          <Gap height={30}></Gap>
+          <Text style={styles.textCategory}>
+            Mau konsultasi dengan siapa hari ini?
+          </Text>
+        </View>
+        <Gap height={16}></Gap>
+        <View style={styles.wrapperScroll}>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={{flexDirection: 'row'}}>
+              <Gap width={32}></Gap>
+              {JSONCategoryDoctor.data.map(item => {
+                return (
+                  <DoctorCategory
+                    key={item.id}
+                    category={item.category}></DoctorCategory>
+                );
+              })}
+              <Gap width={22}></Gap>
+            </View>
+          </ScrollView>
+        </View>
+        <View style={styles.wrapperSection}>
+          <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
+          <RatedDoctor
+            list="doctor1"
+            name="Alexa Rachel"
+            category="Pediatrician"></RatedDoctor>
+          <Gap height={16}></Gap>
+          <RatedDoctor
+            list="doctor2"
+            name="Sunny Frank"
+            category="Dentist"></RatedDoctor>
+          <Gap height={16}></Gap>
+          <RatedDoctor
+            list="doctor3"
+            name="Poe Minn"
+            category="Podiatrist"></RatedDoctor>
+          <Gap height={30}></Gap>
+        </View>
       </View>
     </View>
   );

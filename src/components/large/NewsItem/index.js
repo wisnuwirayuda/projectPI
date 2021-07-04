@@ -1,29 +1,15 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {DNews1, DNews2, DNews3} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const NewsItem = ({list}) => {
-  const Photo = () => {
-    if (list === 'news1') {
-      return <Image source={DNews1} style={styles.photo}></Image>;
-    } else if (list === 'news2') {
-      return <Image source={DNews2} style={styles.photo}></Image>;
-    } else if (list === 'news3') {
-      return <Image source={DNews3} style={styles.photo}></Image>;
-    } else {
-      return <Image source={DNews1} style={styles.photo}></Image>;
-    }
-  };
+const NewsItem = ({tittle, date, pic}) => {
   return (
     <View style={styles.container}>
+      <Image source={pic} style={styles.photo}></Image>
       <View style={styles.wrapper}>
-        <Text style={styles.tittle}>
-          Is it safe to stay at home during coronavirus?
-        </Text>
-        <Text style={styles.date}>Today</Text>
+        <Text style={styles.tittle}>{tittle}</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
-      <Photo></Photo>
     </View>
   );
 };
@@ -41,6 +27,7 @@ const styles = StyleSheet.create({
   },
   wrapper: {
     flex: 1,
+    paddingLeft: 15,
   },
   tittle: {
     fontSize: 16,
