@@ -11,21 +11,25 @@ const ChooseDoctor = ({navigation}) => {
         title="Pilih Dokter Anak"
         onPress={() => navigation.goBack()}></Header>
       <ListDoctor
+        onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list1"
         name="Alexander Jannie"
         desc="Wanita"></ListDoctor>
       <ListDoctor
+        onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list2"
         name="John McParker Steve"
         desc="Pria"></ListDoctor>
       <ListDoctor
+        onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list3"
         name="John McParker Steve"
         desc="Wanita"></ListDoctor>
       <ListDoctor
+        onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list4"
         name="Nairobi Putri Hayza"

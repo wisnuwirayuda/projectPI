@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {
   DDoctor4,
   DDoctor5,
@@ -10,7 +10,7 @@ import {
 } from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const ListDoctor = ({list, name, desc, type}) => {
+const ListDoctor = ({list, name, desc, type, onPress}) => {
   const Photo = () => {
     if (list === 'list1') {
       return <Image source={DDoctor4} style={styles.avatar}></Image>;
@@ -27,14 +27,14 @@ const ListDoctor = ({list, name, desc, type}) => {
     }
   };
   return (
-    <View style={styles.container}>
+    <TouchableOpacity style={styles.container} onPress={onPress}>
       <Photo></Photo>
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.chat}>{desc}</Text>
       </View>
       {type === 'next' && <INext></INext>}
-    </View>
+    </TouchableOpacity>
   );
 };
 

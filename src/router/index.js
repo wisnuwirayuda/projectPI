@@ -10,6 +10,7 @@ import {
   Messages,
   News,
   ChooseDoctor,
+  Chatting,
 } from '../pages';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {BottomNavigator} from '../components';
@@ -58,6 +59,10 @@ const Router = () => {
       <Stack.Screen
         name="ChooseDoctor"
         component={ChooseDoctor}
+        options={{headerShown: false}}></Stack.Screen>
+      <Stack.Screen
+        name="Chatting"
+        component={Chatting}
         options={{headerShown: false}}></Stack.Screen>
     </Stack.Navigator>
   );

@@ -10,6 +10,8 @@ import INews from './news.svg';
 import INewsActive from './news-active.svg';
 import IRatedDoctor from './rated-doctor.svg';
 import INext from './next.svg';
+import ISend from './send.svg';
+import ISendActive from './send-active.svg';
 
 export {
   IBackDark,
@@ -24,4 +26,6 @@ export {
   IRatedDoctor,
   INext,
   IBackLight,
+  ISend,
+  ISendActive,
 };

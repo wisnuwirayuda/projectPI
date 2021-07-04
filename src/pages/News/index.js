@@ -63,9 +63,8 @@ const News = () => {
           <Text style={styles.tittle}>Recommended</Text>
           {news.map(item => {
             return (
-              <View>
+              <View key={item.id}>
                 <NewsItem
-                  key={item.id}
                   pic={item.pic}
                   tittle={item.tittle}
                   date={item.date}></NewsItem>
