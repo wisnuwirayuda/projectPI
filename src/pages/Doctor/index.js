@@ -10,7 +10,7 @@ import {Gap} from '../../components';
 import {fonts, colors} from '../../utils';
 import {JSONCategoryDoctor} from '../../assets';
 
-const Doctor = () => {
+const Doctor = ({navigation}) => {
   return (
     <View style={styles.page}>
       <View style={styles.container}>
@@ -31,7 +31,10 @@ const Doctor = () => {
                 return (
                   <DoctorCategory
                     key={item.id}
-                    category={item.category}></DoctorCategory>
+                    category={item.category}
+                    onPress={() =>
+                      navigation.navigate('ChooseDoctor')
+                    }></DoctorCategory>
                 );
               })}
               <Gap width={22}></Gap>

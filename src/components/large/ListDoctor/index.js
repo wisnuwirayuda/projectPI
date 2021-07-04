@@ -1,9 +1,16 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import {DDoctor4, DDoctor5, DDoctor6} from '../../../assets';
+import {
+  DDoctor4,
+  DDoctor5,
+  DDoctor6,
+  DDoctor7,
+  DDoctor8,
+  INext,
+} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const ListDoctor = ({list}) => {
+const ListDoctor = ({list, name, desc, type}) => {
   const Photo = () => {
     if (list === 'list1') {
       return <Image source={DDoctor4} style={styles.avatar}></Image>;
@@ -11,6 +18,10 @@ const ListDoctor = ({list}) => {
       return <Image source={DDoctor5} style={styles.avatar}></Image>;
     } else if (list === 'list3') {
       return <Image source={DDoctor6} style={styles.avatar}></Image>;
+    } else if (list === 'list4') {
+      return <Image source={DDoctor7} style={styles.avatar}></Image>;
+    } else if (list === 'list5') {
+      return <Image source={DDoctor8} style={styles.avatar}></Image>;
     } else {
       return <Image source={DDoctor4} style={styles.avatar}></Image>;
     }
@@ -18,12 +29,11 @@ const ListDoctor = ({list}) => {
   return (
     <View style={styles.container}>
       <Photo></Photo>
-      <View>
-        <Text style={styles.name}>Alexander Jannie</Text>
-        <Text style={styles.chat}>
-          Baik ibu, terima kasih banyak atas wakt...
-        </Text>
+      <View style={styles.info}>
+        <Text style={styles.name}>{name}</Text>
+        <Text style={styles.chat}>{desc}</Text>
       </View>
+      {type === 'next' && <INext></INext>}
     </View>
   );
 };
@@ -43,6 +53,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderBottomWidth: 1,
     borderBottomColor: colors.border,
+    justifyContent: 'space-between',
+  },
+  info: {
+    flex: 1,
   },
   name: {
     fontSize: 16,
