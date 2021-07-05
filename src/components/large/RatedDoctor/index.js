@@ -1,9 +1,9 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {DDoctor1, DDoctor2, DDoctor3, IRatedDoctor} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const RatedDoctor = ({list, name, category}) => {
+const RatedDoctor = ({list, name, category, onPress}) => {
   const Doctor = () => {
     if (list === 'doctor1') {
       return <Image source={DDoctor1} style={styles.ava}></Image>;
@@ -17,7 +17,7 @@ const RatedDoctor = ({list, name, category}) => {
   };
 
   return (
-    <View style={styles.page}>
+    <TouchableOpacity style={styles.page} onPress={onPress}>
       <Doctor></Doctor>
       <View style={styles.info}>
         <Text style={styles.nameInfo}>{name}</Text>
@@ -30,7 +30,7 @@ const RatedDoctor = ({list, name, category}) => {
         <IRatedDoctor></IRatedDoctor>
         <IRatedDoctor></IRatedDoctor>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

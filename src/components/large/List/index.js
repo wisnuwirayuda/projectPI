@@ -7,10 +7,14 @@ import {
   DDoctor7,
   DDoctor8,
   INext,
+  IEditProfile,
+  IRateProfile,
+  IHelpProfile,
+  ILanguageProfile,
 } from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const ListDoctor = ({list, name, desc, type, onPress}) => {
+const List = ({list, name, desc, type, onPress, icon}) => {
   const Photo = () => {
     if (list === 'list1') {
       return <Image source={DDoctor4} style={styles.avatar}></Image>;
@@ -26,9 +30,24 @@ const ListDoctor = ({list, name, desc, type, onPress}) => {
       return <Image source={DDoctor4} style={styles.avatar}></Image>;
     }
   };
+
+  const Icons = () => {
+    if (icon === 'edit-profile') {
+      return <IEditProfile></IEditProfile>;
+    } else if (icon === 'language-profile') {
+      return <ILanguageProfile></ILanguageProfile>;
+    } else if (icon === 'help-profile') {
+      return <IHelpProfile></IHelpProfile>;
+    } else if (icon === 'rate-profile') {
+      return <IRateProfile></IRateProfile>;
+    } else {
+      return <IEditProfile></IEditProfile>;
+    }
+  };
+
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      <Photo></Photo>
+      {icon ? <Icons></Icons> : <Photo></Photo>}
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.chat}>{desc}</Text>
@@ -38,14 +57,13 @@ const ListDoctor = ({list, name, desc, type, onPress}) => {
   );
 };
 
-export default ListDoctor;
+export default List;
 
 const styles = StyleSheet.create({
   avatar: {
     width: 46,
     height: 46,
     borderRadius: 46 / 2,
-    marginRight: 12,
   },
   container: {
     padding: 16,
@@ -57,6 +75,7 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
+    marginLeft: 16,
   },
   name: {
     fontSize: 16,

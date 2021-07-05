@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
   title: type => ({
     textAlign: 'center',
     flex: 1,
-    color: type === 'dark' ? colors.white : colors.primary,
+    color: type === 'dark' ? colors.white : colors.black,
     fontSize: 20,
     fontFamily: fonts.primary[600],
   }),

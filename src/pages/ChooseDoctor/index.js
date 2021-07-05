@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {Header, ListDoctor} from '../../components';
+import {Header, List} from '../../components';
 import {colors, fonts} from '../../utils';
 
 const ChooseDoctor = ({navigation}) => {
@@ -10,35 +10,31 @@ const ChooseDoctor = ({navigation}) => {
         type="dark"
         title="Pilih Dokter Anak"
         onPress={() => navigation.goBack()}></Header>
-      <ListDoctor
+      <List
         onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list1"
         name="Alexander Jannie"
-        desc="Wanita"></ListDoctor>
-      <ListDoctor
+        desc="Wanita"></List>
+      <List
         onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list2"
         name="John McParker Steve"
-        desc="Pria"></ListDoctor>
-      <ListDoctor
+        desc="Pria"></List>
+      <List
         onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list3"
         name="John McParker Steve"
-        desc="Wanita"></ListDoctor>
-      <ListDoctor
+        desc="Wanita"></List>
+      <List
         onPress={() => navigation.navigate('Chatting')}
         type="next"
         list="list4"
         name="Nairobi Putri Hayza"
-        desc="Wanita"></ListDoctor>
-      <ListDoctor
-        type="next"
-        list="list5"
-        name="James Rivillia"
-        desc="Pria"></ListDoctor>
+        desc="Wanita"></List>
+      <List type="next" list="list5" name="James Rivillia" desc="Pria"></List>
     </View>
   );
 };

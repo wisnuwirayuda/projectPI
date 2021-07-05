@@ -16,7 +16,8 @@ const Doctor = ({navigation}) => {
       <View style={styles.container}>
         <View style={styles.wrapperSection}>
           <Gap height={30}></Gap>
-          <HomeProfile></HomeProfile>
+          <HomeProfile
+            onPress={() => navigation.navigate('UserProfile')}></HomeProfile>
           <Gap height={30}></Gap>
           <Text style={styles.textCategory}>
             Mau konsultasi dengan siapa hari ini?
@@ -46,7 +47,8 @@ const Doctor = ({navigation}) => {
           <RatedDoctor
             list="doctor1"
             name="Alexa Rachel"
-            category="Pediatrician"></RatedDoctor>
+            category="Pediatrician"
+            onPress={() => navigation.navigate('DoctorProfile')}></RatedDoctor>
           <Gap height={16}></Gap>
           <RatedDoctor
             list="doctor2"

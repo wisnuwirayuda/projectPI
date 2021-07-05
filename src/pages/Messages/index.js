@@ -1,25 +1,28 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
-import {ListDoctor} from '../../components';
+import {List} from '../../components';
 import {colors, fonts} from '../../utils';
 
-const Messages = () => {
+const Messages = ({navigation}) => {
   return (
     <View style={styles.page}>
       <View style={styles.content}>
         <Text style={styles.tittle}>Messages</Text>
-        <ListDoctor
+        <List
           list="list1"
           name="Alexander Jannie"
-          desc="Baik ibu, terima kasih banyak atas wakt..."></ListDoctor>
-        <ListDoctor
+          desc="Baik ibu, terima kasih banyak atas wakt..."
+          onPress={() => navigation.navigate('Chatting')}></List>
+        <List
           list="list2"
           name="Nairobi Putri Hayza"
-          desc="Oh tentu saja tidak karena jeruk it..."></ListDoctor>
-        <ListDoctor
+          desc="Oh tentu saja tidak karena jeruk it..."
+          onPress={() => navigation.navigate('Chatting')}></List>
+        <List
           list="list3"
           name="John McParker Steve"
-          desc="Oke menurut pak dokter bagaimana unt..."></ListDoctor>
+          desc="Oke menurut pak dokter bagaimana unt..."
+          onPress={() => navigation.navigate('Chatting')}></List>
       </View>
     </View>
   );

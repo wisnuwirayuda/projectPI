@@ -12,6 +12,12 @@ import IRatedDoctor from './rated-doctor.svg';
 import INext from './next.svg';
 import ISend from './send.svg';
 import ISendActive from './send-active.svg';
+import IEditProfile from './edit-profile.svg';
+import IHelpProfile from './help-profile.svg';
+import ILanguageProfile from './language-profile.svg';
+import IRateProfile from './rate-profile.svg';
+import IMaleDoctor from './male-doctor.svg';
+import IFemaleDoctor from './female-doctor.svg';
 
 export {
   IBackDark,
@@ -28,4 +34,10 @@ export {
   IBackLight,
   ISend,
   ISendActive,
+  IEditProfile,
+  IHelpProfile,
+  ILanguageProfile,
+  IRateProfile,
+  IMaleDoctor,
+  IFemaleDoctor,
 };
