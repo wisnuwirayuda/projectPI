@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, StyleSheet, TextInput} from 'react-native';
 import {colors} from '../../../utils';
 
-const Input = ({label, placeholder}) => {
+const Input = ({label, placeholder, value, onChangeText}) => {
+  const [border, setBorder] = useState(colors.border);
+  const onFocusForm = () => {
+    setBorder(colors.borderFocus);
+  };
+  const onBlurForm = () => {
+    setBorder(colors.border);
+  };
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
       <TextInput
-        style={styles.input}
+        style={styles.input(border)}
         secureTextEntry={label === 'Password' ? true : false}
-        placeholder={placeholder}></TextInput>
+        placeholder={placeholder}
+        onFocus={onFocusForm}
+        onBlur={onBlurForm}
+        value={value}
+        onChangeText={onChangeText}></TextInput>
     </View>
   );
 };
@@ -22,10 +33,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     marginBottom: 6,
   },
-  input: {
+  input: border => ({
     borderWidth: 1,
     borderRadius: 10,
-    borderColor: colors.border,
+    borderColor: border,
     padding: 12,
-  },
+  }),
 });

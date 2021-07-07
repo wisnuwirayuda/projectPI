@@ -8,6 +8,7 @@ const mainColors = {
   gray1: '#7D8797',
   gray2: '#E9E9E9',
   gray3: '#EDEEF0',
+  border1: '#0066CB',
 };
 
 export const colors = {
@@ -38,6 +39,7 @@ export const colors = {
     inActive: mainColors.dark2,
   },
   border: mainColors.gray2,
+  borderFocus: mainColors.border1,
   card: {
     primary: mainColors.blue2,
     secondary: mainColors.blue3,

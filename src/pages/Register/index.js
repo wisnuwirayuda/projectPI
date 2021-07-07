@@ -1,28 +1,64 @@
-import React from 'react';
-import {StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
+import {StyleSheet, View, ScrollView} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
-import {colors} from '../../utils';
+import {colors, useForm} from '../../utils';
 
 const Register = ({navigation}) => {
+  // const [fullname, setFullName] = useState('');
+  // const [phonenumber, setPhoneNumber] = useState('');
+  // const [occupation, setOccupation] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+
+  const [form, setForm] = useForm({
+    fullname: '',
+    phonenumber: '',
+    occupation: '',
+    email: '',
+    password: '',
+  });
+
+  const onContinue = () => {
+    // navigation.navigate('UploadPhoto')
+    console.log(form);
+  };
   return (
     <View style={styles.container}>
       <Header onPress={() => navigation.goBack()} title="Register"></Header>
       <View style={styles.content}>
-        <Input label="Full Name" placeholder="Enter your full name"></Input>
-        <Gap height={24}></Gap>
-        <Input
-          label="Phone Number"
-          placeholder="Enter your phone number"></Input>
-        <Gap height={24}></Gap>
-        <Input label="Occupation" placeholder="Enter your occupation"></Input>
-        <Gap height={24}></Gap>
-        <Input label="Email" placeholder="Enter your email"></Input>
-        <Gap height={24}></Gap>
-        <Input label="Password" placeholder="Enter your password"></Input>
-        <Gap height={40}></Gap>
-        <Button
-          title="Continue"
-          onPress={() => navigation.navigate('UploadPhoto')}></Button>
+        <ScrollView showsVerticalScrollIndicator={false}>
+          <Input
+            label="Full Name"
+            placeholder="Enter your full name"
+            value={form.fullname}
+            onChangeText={value => setForm('fullname', value)}></Input>
+          <Gap height={24}></Gap>
+          <Input
+            label="Phone Number"
+            placeholder="Enter your phone number"
+            value={form.phonenumber}
+            onChangeText={value => setForm('phonenumber', value)}></Input>
+          <Gap height={24}></Gap>
+          <Input
+            label="Occupation"
+            placeholder="Enter your occupation"
+            value={form.occupation}
+            onChangeText={value => setForm('occupation', value)}></Input>
+          <Gap height={24}></Gap>
+          <Input
+            label="Email"
+            placeholder="Enter your email"
+            value={form.email}
+            onChangeText={value => setForm('email', value)}></Input>
+          <Gap height={24}></Gap>
+          <Input
+            label="Password"
+            placeholder="Enter your password"
+            value={form.password}
+            onChangeText={value => setForm('password', value)}></Input>
+          <Gap height={40}></Gap>
+          <Button title="Continue" onPress={onContinue}></Button>
+        </ScrollView>
       </View>
     </View>
   );
