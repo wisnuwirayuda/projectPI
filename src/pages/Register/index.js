@@ -31,6 +31,7 @@ const Register = ({navigation}) => {
         // Signed in
         const user = success.user;
         setLoading(false);
+        setForm('reset');
         alert('Register Success', user);
       })
       .catch(error => {
