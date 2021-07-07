@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
 import {colors, useForm} from '../../utils';
+import {Firebase} from '../../config';
 
 const Register = ({navigation}) => {
   // const [fullname, setFullName] = useState('');
@@ -20,7 +21,17 @@ const Register = ({navigation}) => {
 
   const onContinue = () => {
     // navigation.navigate('UploadPhoto')
-    console.log(form);
+    Firebase.auth()
+      .createUserWithEmailAndPassword(form.email, form.password)
+      .then(success => {
+        // Signed in
+        const user = success.user;
+        console.log('Register Success', user);
+      })
+      .catch(error => {
+        const errorMessage = error.message;
+        console.log('Error Register: ', errorMessage);
+      });
   };
   return (
     <View style={styles.container}>
