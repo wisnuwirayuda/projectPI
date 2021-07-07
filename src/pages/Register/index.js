@@ -4,6 +4,7 @@ import {Button, Gap, Header, Input} from '../../components';
 import {colors, useForm} from '../../utils';
 import {Firebase} from '../../config';
 import {Loading} from '../../components';
+import {showMessage, hideMessage} from 'react-native-flash-message';
 
 const Register = ({navigation}) => {
   // const [fullname, setFullName] = useState('');
@@ -23,7 +24,7 @@ const Register = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const onContinue = () => {
-    // navigation.navigate('UploadPhoto')
+    // navigation.navigate('UploadPhoto');
     setLoading(true);
     Firebase.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
@@ -32,12 +33,17 @@ const Register = ({navigation}) => {
         const user = success.user;
         setLoading(false);
         setForm('reset');
-        alert('Register Success', user);
       })
       .catch(error => {
         const errorMessage = error.message;
         setLoading(false);
-        alert(errorMessage);
+        showMessage({
+          message: errorMessage,
+          type: 'default',
+          duration: 2000,
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
       });
   };
 
