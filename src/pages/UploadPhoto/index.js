@@ -1,10 +1,12 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {View, Text, Image, StyleSheet} from 'react-native';
 import {Header, Button, Link, Gap} from '../../components';
-import {ILPhotoNull, IAddPhoto} from '../../assets';
+import {ILPhotoNull, IAddPhoto, IRemovePhoto} from '../../assets';
 import {colors, fonts} from '../../utils';
 
 const UploadPhoto = ({navigation}) => {
+  const [hasPhoto, setHasPhoto] = useState(false);
+
   return (
     <View style={styles.page}>
       <Header title="Upload Photo" onPress={() => navigation.goBack()}></Header>
@@ -16,7 +18,8 @@ const UploadPhoto = ({navigation}) => {
               width="50"
               height="50"
               style={styles.avatar}></Image>
-            <IAddPhoto style={styles.addPhoto}></IAddPhoto>
+            {hasPhoto && <IRemovePhoto style={styles.addPhoto}></IRemovePhoto>}
+            {!hasPhoto && <IAddPhoto style={styles.addPhoto}></IAddPhoto>}
           </View>
           <Gap height={26}></Gap>
           <Text style={styles.name}>Shayna Melinda</Text>
@@ -25,6 +28,7 @@ const UploadPhoto = ({navigation}) => {
         </View>
         <View>
           <Button
+            disable
             title="Upload and Continue"
             onPress={() => navigation.replace('MainApp')}></Button>
           <Gap height={30}></Gap>
