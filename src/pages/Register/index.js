@@ -33,6 +33,17 @@ const Register = ({navigation}) => {
         const user = success.user;
         setLoading(false);
         setForm('reset');
+        const data = {
+          fullname: form.fullname,
+          phonenumber: form.phonenumber,
+          occupation: form.occupation,
+          email: form.email,
+        };
+        // https://firebase.com/users/uid
+        Firebase.database()
+          .ref('users/' + user.uid + '/')
+          .set(data);
+        console.log(user);
       })
       .catch(error => {
         const errorMessage = error.message;
