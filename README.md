@@ -10,4 +10,6 @@ Library
 
 - React Native Flash Message https://www.npmjs.com/package/react-native-flash-message
 
-- Firebase "yarn add firebase"
+- React Native Image Picker https://github.com/react-native-image-picker/react-native-image-picker
+
+- React Native Firebase "yarn add firebase"
