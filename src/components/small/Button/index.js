@@ -21,7 +21,7 @@ const Button = ({type, title, onPress, icon, disable}) => {
 
   return (
     <TouchableOpacity style={styles.container(type)} onPress={onPress}>
-      <Text style={styles.disableText(type)}>{title}</Text>
+      <Text style={styles.disableText}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: fonts.primary[600],
     textAlign: 'center',
-    color: colors.button.disable.text,
+    color: colors.button.primary.text,
   },
 });

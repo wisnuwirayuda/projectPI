@@ -1,26 +1,49 @@
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet} from 'react-native';
+import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
 import {Header, Button, Link, Gap} from '../../components';
 import {ILPhotoNull, IAddPhoto, IRemovePhoto} from '../../assets';
 import {colors, fonts} from '../../utils';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const UploadPhoto = ({navigation}) => {
   const [hasPhoto, setHasPhoto] = useState(false);
+  const [photo, setPhoto] = useState(ILPhotoNull);
+
+  const options = {
+    mediaType: 'mixed',
+    includeBase64: true,
+    // selectionLimit: 0,
+  };
+
+  const getImage = () => {
+    launchImageLibrary(options, response => {
+      console.log('response: ', response);
+
+      const userPhoto = response.assets[0];
+      const source = {uri: userPhoto.uri};
+      setPhoto(source);
+      setHasPhoto(true);
+
+      if (response.didCancel === true) {
+        console.log('User cancelled image picker');
+      }
+    });
+  };
 
   return (
     <View style={styles.page}>
       <Header title="Upload Photo" onPress={() => navigation.goBack()}></Header>
       <View style={styles.content}>
         <View style={styles.profile}>
-          <View style={styles.avatarWrapper}>
+          <TouchableOpacity style={styles.avatarWrapper} onPress={getImage}>
             <Image
-              source={ILPhotoNull}
+              source={photo}
               width="50"
               height="50"
               style={styles.avatar}></Image>
             {hasPhoto && <IRemovePhoto style={styles.addPhoto}></IRemovePhoto>}
             {!hasPhoto && <IAddPhoto style={styles.addPhoto}></IAddPhoto>}
-          </View>
+          </TouchableOpacity>
           <Gap height={26}></Gap>
           <Text style={styles.name}>Shayna Melinda</Text>
           <Gap height={4}></Gap>
@@ -28,7 +51,7 @@ const UploadPhoto = ({navigation}) => {
         </View>
         <View>
           <Button
-            disable
+            disable={!hasPhoto}
             title="Upload and Continue"
             onPress={() => navigation.replace('MainApp')}></Button>
           <Gap height={30}></Gap>
@@ -68,6 +91,7 @@ const styles = StyleSheet.create({
   avatar: {
     width: 110,
     height: 110,
+    borderRadius: 110 / 2,
   },
   addPhoto: {
     position: 'absolute',
