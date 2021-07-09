@@ -12,4 +12,6 @@ Library
 
 - React Native Image Picker https://github.com/react-native-image-picker/react-native-image-picker
 
+- React Native Async Storage https://github.com/react-native-async-storage/async-storage
+
 - React Native Firebase "yarn add firebase"
