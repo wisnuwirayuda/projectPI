@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {StyleSheet, View, ScrollView} from 'react-native';
 import {Button, Gap, Header, Input} from '../../components';
-import {colors, useForm} from '../../utils';
+import {colors, getData, storeData, useForm} from '../../utils';
 import {Firebase} from '../../config';
 import {Loading} from '../../components';
 import {showMessage, hideMessage} from 'react-native-flash-message';
@@ -24,7 +24,7 @@ const Register = ({navigation}) => {
   const [loading, setLoading] = useState(false);
 
   const onContinue = () => {
-    // navigation.navigate('UploadPhoto');
+    console.log(form);
     setLoading(true);
     Firebase.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
@@ -43,6 +43,9 @@ const Register = ({navigation}) => {
         Firebase.database()
           .ref('users/' + user.uid + '/')
           .set(data);
+
+        storeData('user', data);
+        navigation.navigate('UploadPhoto');
         console.log(user);
       })
       .catch(error => {

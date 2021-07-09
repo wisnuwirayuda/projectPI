@@ -14,14 +14,14 @@ const Button = ({type, title, onPress, icon, disable}) => {
   if (disable) {
     return (
       <View style={styles.disableBackground}>
-        <Text style={styles.text(type)}>{title}</Text>
+        <Text style={styles.disableText}>{title}</Text>
       </View>
     );
   }
 
   return (
     <TouchableOpacity style={styles.container(type)} onPress={onPress}>
-      <Text style={styles.disableText}>{title}</Text>
+      <Text style={styles.text(type)}>{title}</Text>
     </TouchableOpacity>
   );
 };
@@ -55,6 +55,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontFamily: fonts.primary[600],
     textAlign: 'center',
-    color: colors.button.primary.text,
+    color: colors.button.disable.text,
   },
 });
