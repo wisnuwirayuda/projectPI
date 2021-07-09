@@ -4,6 +4,7 @@ import {Header, Button, Link, Gap} from '../../components';
 import {ILPhotoNull, IAddPhoto, IRemovePhoto} from '../../assets';
 import {colors, fonts} from '../../utils';
 import {launchImageLibrary} from 'react-native-image-picker';
+import {showMessage} from 'react-native-flash-message';
 
 const UploadPhoto = ({navigation}) => {
   const [hasPhoto, setHasPhoto] = useState(false);
@@ -19,13 +20,19 @@ const UploadPhoto = ({navigation}) => {
     launchImageLibrary(options, response => {
       console.log('response: ', response);
 
-      const userPhoto = response.assets[0];
-      const source = {uri: userPhoto.uri};
-      setPhoto(source);
-      setHasPhoto(true);
+      if (response.didCancel === true || response.errorMessage) {
+        showMessage({
+          message: 'Oops, sepertinya anda tidak memilih fotonya',
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+      } else {
+        const userPhoto = response.assets[0];
+        const source = {uri: userPhoto.uri};
 
-      if (response.didCancel === true) {
-        console.log('User cancelled image picker');
+        setPhoto(source);
+        setHasPhoto(true);
       }
     });
   };
