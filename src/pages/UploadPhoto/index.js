@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, Image, StyleSheet, TouchableOpacity} from 'react-native';
-import {Header, Button, Link, Gap} from '../../components';
-import {ILPhotoNull, IAddPhoto, IRemovePhoto} from '../../assets';
-import {colors, fonts} from '../../utils';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import {showMessage} from 'react-native-flash-message';
+import {launchImageLibrary} from 'react-native-image-picker';
+import {IAddPhoto, ILPhotoNull, IRemovePhoto} from '../../assets';
+import {Button, Gap, Header, Link} from '../../components';
+import {colors, fonts} from '../../utils';
 
-const UploadPhoto = ({navigation}) => {
+const UploadPhoto = ({navigation, route}) => {
+  const {fullname, occupation} = route.params;
+
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILPhotoNull);
 
@@ -52,9 +54,9 @@ const UploadPhoto = ({navigation}) => {
             {!hasPhoto && <IAddPhoto style={styles.addPhoto}></IAddPhoto>}
           </TouchableOpacity>
           <Gap height={26}></Gap>
-          <Text style={styles.name}>Shayna Melinda</Text>
+          <Text style={styles.name}>{fullname}</Text>
           <Gap height={4}></Gap>
-          <Text style={styles.profession}>Product Designer</Text>
+          <Text style={styles.profession}>{occupation}</Text>
         </View>
         <View>
           <Button

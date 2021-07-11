@@ -45,7 +45,7 @@ const Register = ({navigation}) => {
           .set(data);
 
         storeData('user', data);
-        navigation.navigate('UploadPhoto');
+        navigation.navigate('UploadPhoto', data);
         console.log(user);
       })
       .catch(error => {
