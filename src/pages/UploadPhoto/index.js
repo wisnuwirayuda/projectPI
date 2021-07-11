@@ -5,12 +5,14 @@ import {launchImageLibrary} from 'react-native-image-picker';
 import {IAddPhoto, ILPhotoNull, IRemovePhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
 import {colors, fonts} from '../../utils';
+import {Firebase} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
-  const {fullname, occupation} = route.params;
+  const {fullname, occupation, uid} = route.params;
 
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILPhotoNull);
+  const [photoDB, setPhotoDB] = useState('');
 
   const options = {
     mediaType: 'mixed',
@@ -30,13 +32,22 @@ const UploadPhoto = ({navigation, route}) => {
           color: colors.white,
         });
       } else {
+        console.log('Response getImgae: ', response);
         const userPhoto = response.assets[0];
         const source = {uri: userPhoto.uri};
-
+        setPhotoDB(`data:${userPhoto.type}; ${userPhoto.base64}`);
         setPhoto(source);
         setHasPhoto(true);
       }
     });
+  };
+
+  const uploadAndContinue = () => {
+    Firebase.database()
+      .ref('users/' + uid + '/')
+      .update({photo: photoDB});
+
+    navigation.replace('MainApp');
   };
 
   return (
@@ -62,7 +73,7 @@ const UploadPhoto = ({navigation, route}) => {
           <Button
             disable={!hasPhoto}
             title="Upload and Continue"
-            onPress={() => navigation.replace('MainApp')}></Button>
+            onPress={uploadAndContinue}></Button>
           <Gap height={30}></Gap>
           <Link
             label="Skip for this"

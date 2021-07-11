@@ -38,6 +38,7 @@ const Register = ({navigation}) => {
           phonenumber: form.phonenumber,
           occupation: form.occupation,
           email: form.email,
+          uid: user.uid,
         };
         // https://firebase.com/users/uid
         Firebase.database()
