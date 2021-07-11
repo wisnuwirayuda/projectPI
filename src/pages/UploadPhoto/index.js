@@ -4,7 +4,7 @@ import {showMessage} from 'react-native-flash-message';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {IAddPhoto, ILPhotoNull, IRemovePhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, storeData, getData} from '../../utils';
 import {Firebase} from '../../config';
 
 const UploadPhoto = ({navigation, route}) => {
@@ -17,7 +17,9 @@ const UploadPhoto = ({navigation, route}) => {
   const options = {
     mediaType: 'mixed',
     includeBase64: true,
-    // selectionLimit: 0,
+    quality: 0.5,
+    maxWidth: 200,
+    maxHeight: 200,
   };
 
   const getImage = () => {
@@ -46,6 +48,10 @@ const UploadPhoto = ({navigation, route}) => {
     Firebase.database()
       .ref('users/' + uid + '/')
       .update({photo: photoDB});
+
+    const data = route.params;
+    data.photo = photoDB;
+    storeData('user', data);
 
     navigation.replace('MainApp');
   };

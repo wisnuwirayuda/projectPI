@@ -7,7 +7,7 @@ import {
   NewsItem,
 } from '../../components';
 import {Gap} from '../../components';
-import {fonts, colors} from '../../utils';
+import {fonts, colors, getData} from '../../utils';
 import {JSONCategoryDoctor} from '../../assets';
 
 const Doctor = ({navigation}) => {
