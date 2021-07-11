@@ -45,9 +45,9 @@ const Register = ({navigation}) => {
           .ref('users/' + user.uid + '/')
           .set(data);
 
+        console.log(user);
         storeData('user', data);
         navigation.navigate('UploadPhoto', data);
-        console.log(user);
       })
       .catch(error => {
         const errorMessage = error.message;

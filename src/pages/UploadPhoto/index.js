@@ -15,29 +15,29 @@ const UploadPhoto = ({navigation, route}) => {
   const [photoDB, setPhotoDB] = useState('');
 
   const options = {
-    mediaType: 'mixed',
-    includeBase64: true,
     quality: 0.5,
     maxWidth: 200,
     maxHeight: 200,
+    includeBase64: true,
+    mediaType: 'mixed',
   };
 
   const getImage = () => {
     launchImageLibrary(options, response => {
-      console.log('response: ', response);
+      // console.log('response: ', response);
 
       if (response.didCancel === true || response.errorMessage) {
         showMessage({
-          message: 'Oops, sepertinya anda tidak memilih fotonya',
+          message: 'Foto tidak dipilih',
           type: 'default',
           backgroundColor: colors.error,
           color: colors.white,
         });
       } else {
-        console.log('Response getImgae: ', response);
+        console.log('Response getImage: ', response);
         const userPhoto = response.assets[0];
         const source = {uri: userPhoto.uri};
-        setPhotoDB(`data:${userPhoto.type}; ${userPhoto.base64}`);
+        setPhotoDB(`data:${userPhoto.type};base64,${userPhoto.base64}`);
         setPhoto(source);
         setHasPhoto(true);
       }
