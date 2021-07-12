@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {
   HomeProfile,
@@ -9,8 +9,24 @@ import {
 import {Gap} from '../../components';
 import {fonts, colors, getData} from '../../utils';
 import {JSONCategoryDoctor} from '../../assets';
+import {Firebase} from '../../config';
 
 const Doctor = ({navigation}) => {
+  const [categoryDoctor, setCategoryDoctor] = useState([]);
+  useEffect(() => {
+    Firebase.database()
+      .ref('category_doctor/')
+      .once('value')
+      .then(res => {
+        console.log('category data: ', res.val());
+        if (res.val()) {
+          setCategoryDoctor(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+  }, []);
   return (
     <View style={styles.page}>
       <View style={styles.container}>
@@ -28,7 +44,7 @@ const Doctor = ({navigation}) => {
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={{flexDirection: 'row'}}>
               <Gap width={32}></Gap>
-              {JSONCategoryDoctor.data.map(item => {
+              {categoryDoctor.map(item => {
                 return (
                   <DoctorCategory
                     key={item.id}
