@@ -2,12 +2,12 @@ import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
 import {colors, fonts} from '../../../utils';
 
-const NewsItem = ({tittle, date, pic}) => {
+const NewsItem = ({title, date, pic}) => {
   return (
     <View style={styles.container}>
-      <Image source={pic} style={styles.photo}></Image>
+      <Image source={{uri: pic}} style={styles.photo}></Image>
       <View style={styles.wrapper}>
-        <Text style={styles.tittle}>{tittle}</Text>
+        <Text style={styles.title}>{title}</Text>
         <Text style={styles.date}>{date}</Text>
       </View>
     </View>
@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 15,
   },
-  tittle: {
+  title: {
     fontSize: 16,
     fontFamily: fonts.primary[600],
     color: colors.text.primary,

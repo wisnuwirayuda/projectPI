@@ -1,55 +1,34 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {NewsItem, NewsItemHorizontal} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, showError} from '../../utils';
 import {Gap} from '../../components';
 import {DNews1, DNews2, DNews3} from '../../assets';
+import {Firebase} from '../../config';
 
 const News = () => {
-  const [news, setNews] = useState([
-    {
-      id: 1,
-      tittle: 'Is it safe to stay at home during coronavirus?',
-      date: 'Today',
-      pic: DNews1,
-    },
-    {
-      id: 2,
-      tittle: 'Consume yellow citrus helps you healthier',
-      date: 'Today',
-      pic: DNews2,
-    },
-    {
-      id: 3,
-      tittle: 'Learn how to make a proper orange juice at home',
-      date: 'Today',
-      pic: DNews3,
-    },
-    {
-      id: 4,
-      tittle: 'Is it safe to stay at home during coronavirus?',
-      date: 'Today',
-      pic: DNews1,
-    },
-    {
-      id: 5,
-      tittle: 'Consume yellow citrus helps you healthier',
-      date: 'Today',
-      pic: DNews2,
-    },
-    {
-      id: 6,
-      tittle: 'Learn how to make a proper orange juice at home',
-      date: 'Today',
-      pic: DNews3,
-    },
-  ]);
+  const [news, setNews] = useState([]);
+
+  useEffect(() => {
+    Firebase.database()
+      .ref('news/')
+      .once('value')
+      .then(res => {
+        console.log('data: ', res.val());
+        if (res.val()) {
+          setNews(res.val());
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+  }, []);
 
   return (
     <View style={styles.page}>
       <View style={styles.page2}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.tittle}>Your News</Text>
+          <Text style={styles.title}>Your News</Text>
           <View>
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.content}>
@@ -60,14 +39,15 @@ const News = () => {
               </View>
             </ScrollView>
           </View>
-          <Text style={styles.tittle}>Recommended</Text>
+          <Text style={styles.title}>Recommended</Text>
           {news.map(item => {
             return (
-              <View key={item.id}>
+              <View>
                 <NewsItem
+                  title={item.title}
                   pic={item.pic}
-                  tittle={item.tittle}
-                  date={item.date}></NewsItem>
+                  date={item.date}
+                  key={item.id}></NewsItem>
                 <Gap height={16}></Gap>
               </View>
             );
@@ -89,7 +69,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 20,
     borderBottomLeftRadius: 20,
   },
-  tittle: {
+  title: {
     padding: 16,
     fontSize: 20,
     fontFamily: fonts.primary[600],

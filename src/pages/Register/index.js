@@ -33,7 +33,7 @@ const Register = ({navigation}) => {
           .ref('users/' + user.uid + '/')
           .set(data);
 
-        showSuccess('Success!');
+        showSuccess('Success');
         storeData('user', data);
         navigation.navigate('UploadPhoto', data);
       })
