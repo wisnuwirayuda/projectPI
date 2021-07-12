@@ -1,10 +1,11 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {Header, Profile, Input, Button, Gap} from '../../components';
-import {colors, getData} from '../../utils';
+import {colors, getData, storeData} from '../../utils';
 import {ILPhotoNull} from '../../assets';
 import {Firebase} from '../../config';
 import {showMessage} from 'react-native-flash-message';
+import {launchImageLibrary} from 'react-native-image-picker';
 
 const UpdateProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -12,15 +13,16 @@ const UpdateProfile = ({navigation}) => {
     email: '',
     occupation: '',
     phonenumber: '',
-    photo: ILPhotoNull,
   });
   const [password, setPassword] = useState('');
+  const [photo, setPhoto] = useState(ILPhotoNull);
+  const [photoDB, setPhotoDB] = useState('');
 
   useEffect(() => {
     getData('user').then(res => {
       // console.log('data user: ', res);
       const data = res;
-      data.photo = {uri: res.photo};
+      setPhoto({uri: res.photo});
       console.log('new profile: ', data);
       setProfile(data);
     });
@@ -29,12 +31,19 @@ const UpdateProfile = ({navigation}) => {
   const update = () => {
     console.log('Profile: ', profile);
     const data = profile;
-    data.photo = profile.photo.uri;
+    data.photo = photoDB;
     Firebase.database()
       .ref(`users/${profile.uid}/`)
-      .update(profile)
+      .update(data)
       .then(() => {
-        console.log('Success: ');
+        console.log('Success: ', data);
+        storeData('user', data);
+        showMessage({
+          message: 'Successfully!',
+          type: 'success',
+          duration: 2000,
+        });
+        navigation.goBack();
       })
       .catch(e => {
         const errorMessage = e.message;
@@ -55,13 +64,42 @@ const UpdateProfile = ({navigation}) => {
     });
   };
 
+  const options = {
+    quality: 0.5,
+    maxWidth: 200,
+    maxHeight: 200,
+    includeBase64: true,
+    mediaType: 'mixed',
+  };
+
+  const getImage = () => {
+    launchImageLibrary(options, response => {
+      // console.log('response: ', response);
+
+      if (response.didCancel === true || response.errorMessage) {
+        showMessage({
+          message: 'Foto tidak dipilih',
+          type: 'default',
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+      } else {
+        console.log('Response getImage: ', response);
+        const userPhoto = response.assets[0];
+        const source = {uri: userPhoto.uri};
+        setPhotoDB(`data:${userPhoto.type};base64,${userPhoto.base64}`);
+        setPhoto(source);
+      }
+    });
+  };
+
   return (
     <View style={styles.page}>
       <Header title="Edit Profile" onPress={() => navigation.goBack()}></Header>
       <Gap height={10}></Gap>
       <ScrollView showsVerticalScrollIndicator={false}>
         <View style={styles.wrapperContent}>
-          <Profile isRemove isPhoto={profile.photo}></Profile>
+          <Profile isRemove isPhoto={photo} onPress={getImage}></Profile>
           <Gap height={26}></Gap>
           <Input
             label="Full Name"

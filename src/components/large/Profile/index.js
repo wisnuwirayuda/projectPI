@@ -1,17 +1,30 @@
 import React from 'react';
-import {View, Text, StyleSheet, Image} from 'react-native';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {DUser, IRemovePhoto, IFemaleDoctor} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const Profile = ({name, desc, isRemove, isFemaleDoctor, isPhoto}) => {
+const Profile = ({name, desc, isRemove, isFemaleDoctor, isPhoto, onPress}) => {
   return (
     <View style={styles.container}>
-      <View style={styles.borderProfile}>
-        {isPhoto && <Image source={isPhoto} style={styles.ava}></Image>}
-        {!isPhoto && <Image source={DUser} style={styles.ava}></Image>}
-        {isFemaleDoctor && <IFemaleDoctor style={styles.icon}></IFemaleDoctor>}
-        {isRemove && <IRemovePhoto style={styles.icon}></IRemovePhoto>}
-      </View>
+      {!isRemove && (
+        <View style={styles.borderProfile}>
+          {isPhoto && <Image source={isPhoto} style={styles.ava}></Image>}
+          {!isPhoto && <Image source={DUser} style={styles.ava}></Image>}
+          {isFemaleDoctor && (
+            <IFemaleDoctor style={styles.icon}></IFemaleDoctor>
+          )}
+        </View>
+      )}
+      {isRemove && (
+        <TouchableOpacity style={styles.borderProfile} onPress={onPress}>
+          {isPhoto && <Image source={isPhoto} style={styles.ava}></Image>}
+          {!isPhoto && <Image source={DUser} style={styles.ava}></Image>}
+          {isFemaleDoctor && (
+            <IFemaleDoctor style={styles.icon}></IFemaleDoctor>
+          )}
+          {isRemove && <IRemovePhoto style={styles.icon}></IRemovePhoto>}
+        </TouchableOpacity>
+      )}
       {name ? <Text style={styles.name}>{name}</Text> : null}
       {desc ? <Text style={styles.job}>{desc}</Text> : null}
     </View>
