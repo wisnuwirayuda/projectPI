@@ -1,11 +1,17 @@
 import React from 'react';
 import {ScrollView, StyleSheet, Text, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
 import {useDispatch} from 'react-redux';
 import {ILLogo} from '../../assets';
 import {Button, Gap, Input, Link} from '../../components';
 import {Firebase} from '../../config';
-import {colors, fonts, storeData, useForm} from '../../utils';
+import {
+  colors,
+  fonts,
+  showError,
+  showSuccess,
+  storeData,
+  useForm,
+} from '../../utils';
 
 const Login = ({navigation}) => {
   const [form, setForm] = useForm({
@@ -15,36 +21,27 @@ const Login = ({navigation}) => {
   const dispatch = useDispatch();
 
   const login = () => {
-    // console.log('Form: ', form);
     dispatch({type: 'SET_LOADING', value: true});
 
     Firebase.auth()
       .signInWithEmailAndPassword(form.email, form.password)
       .then(res => {
-        console.log('success', res);
         dispatch({type: 'SET_LOADING', value: false});
         Firebase.database()
           .ref(`users/${res.user.uid}/`)
           .once('value')
           .then(resDB => {
-            console.log('data user: ', resDB.val());
             if (resDB.val()) {
+              showSuccess('Login Success!');
               storeData('user', resDB.val());
               navigation.replace('MainApp');
             }
           });
       })
       .catch(e => {
-        console.log('error: ', e);
         const errorMessage = e.message;
         dispatch({type: 'SET_LOADING', value: false});
-        showMessage({
-          message: errorMessage,
-          type: 'default',
-          duration: 3000,
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(errorMessage);
       });
   };
 
@@ -75,7 +72,6 @@ const Login = ({navigation}) => {
         <Link label="Forgot My Password" size={12}></Link>
         <Gap height={40}></Gap>
         <Button title="Sign In" onPress={login}></Button>
-        {/* onPress={() => navigation.replace('MainApp')} */}
         <Gap height={30}></Gap>
         <Link
           label="Create New Account"

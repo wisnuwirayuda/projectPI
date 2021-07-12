@@ -1,11 +1,10 @@
 import React, {useState} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import {showMessage} from 'react-native-flash-message';
 import {launchImageLibrary} from 'react-native-image-picker';
 import {IAddPhoto, ILPhotoNull, IRemovePhoto} from '../../assets';
 import {Button, Gap, Header, Link} from '../../components';
-import {colors, fonts, storeData, getData} from '../../utils';
 import {Firebase} from '../../config';
+import {colors, fonts, showError, storeData} from '../../utils';
 
 const UploadPhoto = ({navigation, route}) => {
   const {fullname, occupation, uid} = route.params;
@@ -24,17 +23,9 @@ const UploadPhoto = ({navigation, route}) => {
 
   const getImage = () => {
     launchImageLibrary(options, response => {
-      // console.log('response: ', response);
-
       if (response.didCancel === true || response.errorMessage) {
-        showMessage({
-          message: 'Foto tidak dipilih',
-          type: 'default',
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError('Foto tidak dipilih');
       } else {
-        console.log('Response getImage: ', response);
         const userPhoto = response.assets[0];
         const source = {uri: userPhoto.uri};
         setPhotoDB(`data:${userPhoto.type};base64,${userPhoto.base64}`);

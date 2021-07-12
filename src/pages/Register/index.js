@@ -1,18 +1,10 @@
 import React, {useState} from 'react';
-import {StyleSheet, View, ScrollView} from 'react-native';
-import {Button, Gap, Header, Input} from '../../components';
-import {colors, getData, storeData, useForm} from '../../utils';
+import {ScrollView, StyleSheet, View} from 'react-native';
+import {Button, Gap, Header, Input, Loading} from '../../components';
 import {Firebase} from '../../config';
-import {Loading} from '../../components';
-import {showMessage, hideMessage} from 'react-native-flash-message';
+import {colors, showError, showSuccess, storeData, useForm} from '../../utils';
 
 const Register = ({navigation}) => {
-  // const [fullname, setFullName] = useState('');
-  // const [phonenumber, setPhoneNumber] = useState('');
-  // const [occupation, setOccupation] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
-
   const [form, setForm] = useForm({
     fullname: '',
     phonenumber: '',
@@ -20,16 +12,13 @@ const Register = ({navigation}) => {
     email: '',
     password: '',
   });
-
   const [loading, setLoading] = useState(false);
 
   const onContinue = () => {
-    console.log(form);
     setLoading(true);
     Firebase.auth()
       .createUserWithEmailAndPassword(form.email, form.password)
       .then(success => {
-        // Signed in
         const user = success.user;
         setLoading(false);
         setForm('reset');
@@ -40,25 +29,18 @@ const Register = ({navigation}) => {
           email: form.email,
           uid: user.uid,
         };
-        // https://firebase.com/users/uid
         Firebase.database()
           .ref('users/' + user.uid + '/')
           .set(data);
 
-        console.log(user);
+        showSuccess('Success!');
         storeData('user', data);
         navigation.navigate('UploadPhoto', data);
       })
       .catch(error => {
         const errorMessage = error.message;
         setLoading(false);
-        showMessage({
-          message: errorMessage,
-          type: 'default',
-          duration: 2000,
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(errorMessage);
       });
   };
 

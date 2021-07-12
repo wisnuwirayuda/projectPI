@@ -1,10 +1,9 @@
-import React, {useState, useEffect} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {Header, Profile, List, Gap} from '../../components';
-import {colors, getData} from '../../utils';
+import React, {useEffect, useState} from 'react';
+import {StyleSheet, View} from 'react-native';
 import {ILPhotoNull} from '../../assets';
+import {Gap, Header, List, Profile} from '../../components';
 import {Firebase} from '../../config';
-import {showMessage} from 'react-native-flash-message';
+import {colors, getData, showError} from '../../utils';
 
 const UserProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -15,10 +14,8 @@ const UserProfile = ({navigation}) => {
 
   useEffect(() => {
     getData('user').then(res => {
-      // console.log('data user: ', res);
       const data = res;
       data.photo = {uri: res.photo};
-      console.log('new profile: ', data);
       setProfile(data);
     });
   }, []);
@@ -27,17 +24,10 @@ const UserProfile = ({navigation}) => {
     Firebase.auth()
       .signOut()
       .then(() => {
-        console.log('Success Sign Out');
         navigation.replace('GetStarted');
       })
       .catch(err => {
-        showMessage({
-          message: err.message,
-          type: 'default',
-          duration: 2000,
-          backgroundColor: colors.error,
-          color: colors.white,
-        });
+        showError(err.message);
       });
   };
 
