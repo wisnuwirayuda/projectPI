@@ -3,6 +3,7 @@ import {ImageBackground, StyleSheet, Text, View} from 'react-native';
 import {ILBackground, ILLogo} from '../../assets';
 import {Button, Gap} from '../../components';
 import {colors, fonts} from '../../utils';
+import {useSelector} from 'react-redux';
 
 const GetStarted = ({navigation}) => {
   return (
