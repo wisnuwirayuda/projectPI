@@ -3,6 +3,8 @@ import {View, Text, StyleSheet} from 'react-native';
 import {Header, Profile, List, Gap} from '../../components';
 import {colors, getData} from '../../utils';
 import {ILPhotoNull} from '../../assets';
+import {Firebase} from '../../config';
+import {showMessage} from 'react-native-flash-message';
 
 const UserProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
@@ -20,6 +22,24 @@ const UserProfile = ({navigation}) => {
       setProfile(data);
     });
   }, []);
+
+  const signOut = () => {
+    Firebase.auth()
+      .signOut()
+      .then(() => {
+        console.log('Success Sign Out');
+        navigation.replace('GetStarted');
+      })
+      .catch(err => {
+        showMessage({
+          message: err.message,
+          type: 'default',
+          duration: 2000,
+          backgroundColor: colors.error,
+          color: colors.white,
+        });
+      });
+  };
 
   return (
     <View style={styles.page}>
@@ -47,10 +67,11 @@ const UserProfile = ({navigation}) => {
         type="next"
         icon="help-profile"></List>
       <List
-        name="Help Center"
+        name="Sign Out"
         desc="Read our guidelines"
         type="next"
-        icon="rate-profile"></List>
+        icon="rate-profile"
+        onPress={signOut}></List>
     </View>
   );
 };
