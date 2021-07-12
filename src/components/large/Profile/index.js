@@ -3,11 +3,12 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import {DUser, IRemovePhoto, IFemaleDoctor} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const Profile = ({name, desc, isRemove, isFemaleDoctor}) => {
+const Profile = ({name, desc, isRemove, isFemaleDoctor, isPhoto}) => {
   return (
     <View style={styles.container}>
       <View style={styles.borderProfile}>
-        <Image source={DUser} style={styles.ava}></Image>
+        {isPhoto && <Image source={isPhoto} style={styles.ava}></Image>}
+        {!isPhoto && <Image source={DUser} style={styles.ava}></Image>}
         {isFemaleDoctor && <IFemaleDoctor style={styles.icon}></IFemaleDoctor>}
         {isRemove && <IRemovePhoto style={styles.icon}></IRemovePhoto>}
       </View>
@@ -45,11 +46,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: colors.text.primary,
     marginTop: 16,
+    textTransform: 'capitalize',
   },
   job: {
     fontFamily: fonts.primary[400],
     fontSize: 16,
     color: colors.text.secondary,
+    textTransform: 'capitalize',
   },
   icon: {
     position: 'absolute',

@@ -50,10 +50,12 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     fontSize: 16,
     color: colors.text.primary,
+    textTransform: 'capitalize',
   },
   job: {
     fontSize: 12,
     fontFamily: fonts.primary[400],
     color: colors.text.secondary,
+    textTransform: 'capitalize',
   },
 });
