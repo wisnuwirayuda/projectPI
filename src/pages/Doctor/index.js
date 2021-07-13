@@ -1,19 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, ScrollView} from 'react-native';
-import {
-  HomeProfile,
-  DoctorCategory,
-  RatedDoctor,
-  NewsItem,
-} from '../../components';
-import {Gap} from '../../components';
-import {fonts, colors, getData} from '../../utils';
-import {JSONCategoryDoctor} from '../../assets';
+import {ScrollView, StyleSheet, Text, View} from 'react-native';
+import {DoctorCategory, Gap, HomeProfile, RatedDoctor} from '../../components';
 import {Firebase} from '../../config';
+import {colors, fonts} from '../../utils';
 
 const Doctor = ({navigation}) => {
   const [categoryDoctor, setCategoryDoctor] = useState([]);
+  const [doctors, setDoctors] = useState([]);
   useEffect(() => {
+    getCategoryDoctor();
+    getTopRatedDoctor();
+  }, []);
+
+  const getCategoryDoctor = () => {
     Firebase.database()
       .ref('category_doctor/')
       .once('value')
@@ -26,7 +25,39 @@ const Doctor = ({navigation}) => {
       .catch(err => {
         showError(err.message);
       });
-  }, []);
+  };
+
+  const parseArray = listObject => {
+    const data = [];
+    Object.keys(listObject).map(key => {
+      data.push({
+        id: key,
+        data: listObject[key],
+      });
+    });
+    return data;
+  };
+
+  const getTopRatedDoctor = () => {
+    Firebase.database()
+      .ref('doctors/')
+      .orderByChild('rate')
+      .limitToLast(2)
+      .once('value')
+      .then(res => {
+        console.log('top rated doctors ', res.val());
+        if (res.val()) {
+          // setCategoryDoctor(res.val());
+          const data = parseArray(res.val());
+          console.log('data hasil parse: ', data);
+          setDoctors(data);
+        }
+      })
+      .catch(err => {
+        showError(err.message);
+      });
+  };
+
   return (
     <View style={styles.page}>
       <View style={styles.container}>
@@ -60,22 +91,21 @@ const Doctor = ({navigation}) => {
         </View>
         <View style={styles.wrapperSection}>
           <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
-          <RatedDoctor
-            list="doctor1"
-            name="Alexa Rachel"
-            category="Pediatrician"
-            onPress={() => navigation.navigate('DoctorProfile')}></RatedDoctor>
-          <Gap height={16}></Gap>
-          <RatedDoctor
-            list="doctor2"
-            name="Sunny Frank"
-            category="Dentist"></RatedDoctor>
-          <Gap height={16}></Gap>
-          <RatedDoctor
-            list="doctor3"
-            name="Poe Minn"
-            category="Podiatrist"></RatedDoctor>
-          <Gap height={30}></Gap>
+          {doctors.map(doctor => {
+            return (
+              <View>
+                <RatedDoctor
+                  key={doctor.id}
+                  name={doctor.data.fullName}
+                  category={doctor.data.profession}
+                  photo={{uri: doctor.data.photo}}
+                  onPress={() =>
+                    navigation.navigate('DoctorProfile')
+                  }></RatedDoctor>
+                <Gap height={16}></Gap>
+              </View>
+            );
+          })}
         </View>
       </View>
     </View>

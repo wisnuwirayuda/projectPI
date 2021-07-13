@@ -3,22 +3,22 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {DDoctor1, DDoctor2, DDoctor3, IRatedDoctor} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const RatedDoctor = ({list, name, category, onPress}) => {
-  const Doctor = () => {
-    if (list === 'doctor1') {
-      return <Image source={DDoctor1} style={styles.ava}></Image>;
-    } else if (list === 'doctor2') {
-      return <Image source={DDoctor2} style={styles.ava}></Image>;
-    } else if (list === 'doctor3') {
-      return <Image source={DDoctor3} style={styles.ava}></Image>;
-    } else {
-      return <Image source={DDoctor1} style={styles.ava}></Image>;
-    }
-  };
+const RatedDoctor = ({photo, name, category, onPress}) => {
+  // const Doctor = () => {
+  //   if (list === 'doctor1') {
+  //     return <Image source={DDoctor1} style={styles.ava}></Image>;
+  //   } else if (list === 'doctor2') {
+  //     return <Image source={DDoctor2} style={styles.ava}></Image>;
+  //   } else if (list === 'doctor3') {
+  //     return <Image source={DDoctor3} style={styles.ava}></Image>;
+  //   } else {
+  //     return <Image source={DDoctor1} style={styles.ava}></Image>;
+  //   }
+  // };
 
   return (
     <TouchableOpacity style={styles.page} onPress={onPress}>
-      <Doctor></Doctor>
+      <Image source={photo} style={styles.ava}></Image>
       <View style={styles.info}>
         <Text style={styles.nameInfo}>{name}</Text>
         <Text style={styles.categoryInfo}>{category}</Text>
