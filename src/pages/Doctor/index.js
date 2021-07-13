@@ -49,7 +49,6 @@ const Doctor = ({navigation}) => {
         if (res.val()) {
           // setCategoryDoctor(res.val());
           const data = parseArray(res.val());
-          console.log('data hasil parse: ', data);
           setDoctors(data);
         }
       })
@@ -100,7 +99,7 @@ const Doctor = ({navigation}) => {
                   category={doctor.data.profession}
                   photo={{uri: doctor.data.photo}}
                   onPress={() =>
-                    navigation.navigate('DoctorProfile')
+                    navigation.navigate('DoctorProfile', doctor)
                   }></RatedDoctor>
                 <Gap height={16}></Gap>
               </View>

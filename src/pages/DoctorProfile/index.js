@@ -10,24 +10,29 @@ import {
 } from '../../components';
 import {colors} from '../../utils';
 
-const DoctorProfile = ({navigation}) => {
+const DoctorProfile = ({navigation, route}) => {
+  const dataDoctor = route.params;
+
   return (
     <View style={styles.page}>
       <Header
         title="Profile"
         onPress={() => navigation.navigate('MainApp')}></Header>
       <Profile
-        name="Nairobi Putri Hayza"
-        desc="Dokter Anak"
-        isFemaleDoctor></Profile>
+        name={dataDoctor.data.fullName}
+        desc={dataDoctor.data.profession}
+        isPhoto={{uri: dataDoctor.data.photo}}
+        isMaleDoctor></Profile>
       <Gap height={10}></Gap>
       <ProfileItem
         label="Alumnus"
-        value="Universitas Gunadarma, 2020"></ProfileItem>
+        value={dataDoctor.data.university}></ProfileItem>
       <ProfileItem
         label="Tempat Praktik"
-        value="Rumah Sakit Umum, Bandung"></ProfileItem>
-      <ProfileItem label="No. STR" value="0000116622081996"></ProfileItem>
+        value={dataDoctor.data.hospital_address}></ProfileItem>
+      <ProfileItem
+        label="No. STR"
+        value={dataDoctor.data.str_number}></ProfileItem>
       <Gap height={23}></Gap>
       <View style={styles.wrapperButton}>
         <Button

@@ -1,9 +1,17 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
-import {DUser, IRemovePhoto, IFemaleDoctor} from '../../../assets';
+import {DUser, IRemovePhoto, IFemaleDoctor, IMaleDoctor} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const Profile = ({name, desc, isRemove, isFemaleDoctor, isPhoto, onPress}) => {
+const Profile = ({
+  name,
+  desc,
+  isRemove,
+  isFemaleDoctor,
+  isMaleDoctor,
+  isPhoto,
+  onPress,
+}) => {
   return (
     <View style={styles.container}>
       {!isRemove && (
@@ -13,6 +21,7 @@ const Profile = ({name, desc, isRemove, isFemaleDoctor, isPhoto, onPress}) => {
           {isFemaleDoctor && (
             <IFemaleDoctor style={styles.icon}></IFemaleDoctor>
           )}
+          {isMaleDoctor && <IMaleDoctor style={styles.icon}></IMaleDoctor>}
         </View>
       )}
       {isRemove && (
