@@ -19,7 +19,10 @@ const Doctor = ({navigation}) => {
       .then(res => {
         // console.log('category data: ', res.val());
         if (res.val()) {
-          setCategoryDoctor(res.val());
+          const data = res.val();
+          const filterData = data.filter(elemen => elemen != null);
+          // console.log('elemen data: ', filterData);
+          setCategoryDoctor(filterData);
         }
       })
       .catch(err => {
@@ -49,7 +52,7 @@ const Doctor = ({navigation}) => {
         if (res.val()) {
           // setCategoryDoctor(res.val());
           const data = parseArray(res.val());
-          console.log('Top Rated Doctor: ', data);
+          // console.log('Top Rated Doctor: ', data);
           setDoctors(data);
         }
       })
@@ -93,9 +96,8 @@ const Doctor = ({navigation}) => {
           <Text style={styles.sectionLabel}>Top Rated Doctors</Text>
           {doctors.map(doctor => {
             return (
-              <View>
+              <View key={doctor.id}>
                 <RatedDoctor
-                  key={doctor.id}
                   name={doctor.data.fullName}
                   category={doctor.data.profession}
                   photo={{uri: doctor.data.photo}}

@@ -14,9 +14,10 @@ const News = () => {
       .ref('news/')
       .once('value')
       .then(res => {
-        console.log('data: ', res.val());
         if (res.val()) {
-          setNews(res.val());
+          const data = res.val();
+          const filterData = data.filter(elemen => elemen != null);
+          setNews(filterData);
         }
       })
       .catch(err => {
@@ -42,12 +43,11 @@ const News = () => {
           <Text style={styles.title}>Recommended</Text>
           {news.map(item => {
             return (
-              <View>
+              <View key={item.id}>
                 <NewsItem
                   title={item.title}
                   pic={item.pic}
-                  date={item.date}
-                  key={item.id}></NewsItem>
+                  date={item.date}></NewsItem>
                 <Gap height={16}></Gap>
               </View>
             );
