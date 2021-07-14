@@ -4,15 +4,15 @@ import {colors, fonts} from '../../../utils';
 import {Button} from '../../../components';
 import {DDoctor7} from '../../../assets';
 
-const DarkProfile = ({onPress}) => {
+const DarkProfile = ({onPress, title, desc, photo}) => {
   return (
     <View style={styles.container}>
       <Button type="icon-only" icon="back-light" onPress={onPress}></Button>
       <View style={styles.wrapper}>
-        <Text style={styles.name}>Nairobi Putri Hayza</Text>
-        <Text style={styles.position}>Dokter Anak</Text>
+        <Text style={styles.name}>{title}</Text>
+        <Text style={styles.position}>{desc}</Text>
       </View>
-      <Image source={DDoctor7} style={styles.ava}></Image>
+      <Image source={photo} style={styles.ava}></Image>
     </View>
   );
 };
@@ -48,5 +48,6 @@ const styles = StyleSheet.create({
   ava: {
     width: 46,
     height: 46,
+    borderRadius: 46 / 2,
   },
 });

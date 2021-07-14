@@ -4,9 +4,15 @@ import {Button, Gap} from '../..';
 import {colors, fonts} from '../../../utils';
 import DarkProfile from './DarkProfile';
 
-const Header = ({onPress, title, type}) => {
+const Header = ({onPress, title, type, desc, photo}) => {
   if (type === 'dark-profile') {
-    return <DarkProfile onPress={onPress}></DarkProfile>;
+    return (
+      <DarkProfile
+        onPress={onPress}
+        title={title}
+        desc={desc}
+        photo={photo}></DarkProfile>
+    );
   }
 
   return (

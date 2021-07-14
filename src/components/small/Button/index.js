@@ -9,7 +9,7 @@ const Button = ({type, title, onPress, icon, disable}) => {
     return <IconOnly icon={icon} onPress={onPress}></IconOnly>;
   }
   if (type === 'btn-icon-send') {
-    return <BtnIconSend disable={disable}></BtnIconSend>;
+    return <BtnIconSend disable={disable} onPress={onPress}></BtnIconSend>;
   }
   if (disable) {
     return (
