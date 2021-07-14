@@ -49,6 +49,7 @@ const Doctor = ({navigation}) => {
         if (res.val()) {
           // setCategoryDoctor(res.val());
           const data = parseArray(res.val());
+          console.log('Top Rated Doctor: ', data);
           setDoctors(data);
         }
       })

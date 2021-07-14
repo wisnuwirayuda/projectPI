@@ -22,7 +22,7 @@ const DoctorProfile = ({navigation, route}) => {
         name={dataDoctor.data.fullName}
         desc={dataDoctor.data.profession}
         isPhoto={{uri: dataDoctor.data.photo}}
-        isMaleDoctor></Profile>
+        gender={dataDoctor.data.gender}></Profile>
       <Gap height={10}></Gap>
       <ProfileItem
         label="Alumnus"

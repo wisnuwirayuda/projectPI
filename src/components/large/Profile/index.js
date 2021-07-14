@@ -3,25 +3,28 @@ import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {DUser, IRemovePhoto, IFemaleDoctor, IMaleDoctor} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const Profile = ({
-  name,
-  desc,
-  isRemove,
-  isFemaleDoctor,
-  isMaleDoctor,
-  isPhoto,
-  onPress,
-}) => {
+const Profile = ({name, desc, isRemove, isPhoto, onPress, gender}) => {
+  const Kemaluan = () => {
+    if (gender === 'pria') {
+      return <IMaleDoctor style={styles.icon}></IMaleDoctor>;
+    } else if (gender === 'wanita') {
+      return <IFemaleDoctor style={styles.icon}></IFemaleDoctor>;
+    } else {
+      return null;
+    }
+  };
   return (
     <View style={styles.container}>
       {!isRemove && (
         <View style={styles.borderProfile}>
           {isPhoto && <Image source={isPhoto} style={styles.ava}></Image>}
           {!isPhoto && <Image source={DUser} style={styles.ava}></Image>}
-          {isFemaleDoctor && (
+          {/* {gender == 'pria' ? (
+            <IMaleDoctor style={styles.icon}></IMaleDoctor>
+          ) : (
             <IFemaleDoctor style={styles.icon}></IFemaleDoctor>
-          )}
-          {isMaleDoctor && <IMaleDoctor style={styles.icon}></IMaleDoctor>}
+          )} */}
+          <Kemaluan></Kemaluan>
         </View>
       )}
       {isRemove && (

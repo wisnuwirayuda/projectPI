@@ -49,7 +49,7 @@ const ChooseDoctor = ({navigation, route}) => {
             name={doctor.data.fullName}
             desc={doctor.data.gender}
             photo={{uri: doctor.data.photo}}
-            onPress={() => navigation.navigate('Chatting')}></List>
+            onPress={() => navigation.navigate('DoctorProfile', doctor)}></List>
         );
       })}
     </View>
