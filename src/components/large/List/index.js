@@ -14,7 +14,7 @@ import {
 } from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const List = ({list, name, desc, type, onPress, icon}) => {
+const List = ({name, desc, type, onPress, icon, photo, list}) => {
   const Photo = () => {
     if (list === 'list1') {
       return <Image source={DDoctor4} style={styles.avatar}></Image>;
@@ -27,7 +27,7 @@ const List = ({list, name, desc, type, onPress, icon}) => {
     } else if (list === 'list5') {
       return <Image source={DDoctor8} style={styles.avatar}></Image>;
     } else {
-      return <Image source={DDoctor4} style={styles.avatar}></Image>;
+      return null;
     }
   };
 
@@ -41,13 +41,14 @@ const List = ({list, name, desc, type, onPress, icon}) => {
     } else if (icon === 'rate-profile') {
       return <IRateProfile></IRateProfile>;
     } else {
-      return <IEditProfile></IEditProfile>;
+      return null;
     }
   };
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
       {icon ? <Icons></Icons> : <Photo></Photo>}
+      {photo && <Image source={photo} style={styles.avatar}></Image>}
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
         <Text style={styles.chat}>{desc}</Text>

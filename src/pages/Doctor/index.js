@@ -17,7 +17,7 @@ const Doctor = ({navigation}) => {
       .ref('category_doctor/')
       .once('value')
       .then(res => {
-        console.log('category data: ', res.val());
+        // console.log('category data: ', res.val());
         if (res.val()) {
           setCategoryDoctor(res.val());
         }
@@ -45,7 +45,7 @@ const Doctor = ({navigation}) => {
       .limitToLast(2)
       .once('value')
       .then(res => {
-        console.log('top rated doctors ', res.val());
+        // console.log('top rated doctors ', res.val());
         if (res.val()) {
           // setCategoryDoctor(res.val());
           const data = parseArray(res.val());
@@ -80,7 +80,7 @@ const Doctor = ({navigation}) => {
                     key={item.id}
                     category={item.category}
                     onPress={() =>
-                      navigation.navigate('ChooseDoctor')
+                      navigation.navigate('ChooseDoctor', item)
                     }></DoctorCategory>
                 );
               })}

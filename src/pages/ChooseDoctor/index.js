@@ -1,40 +1,57 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {Header, List} from '../../components';
+import {Firebase} from '../../config';
 import {colors, fonts} from '../../utils';
 
-const ChooseDoctor = ({navigation}) => {
+const ChooseDoctor = ({navigation, route}) => {
+  const [listDoctor, setListDoctor] = useState([]);
+  const itemCategory = route.params;
+  useEffect(() => {
+    console.log('Category: ', itemCategory.category);
+    callDoctorByCategory(itemCategory.category);
+  }, []);
+
+  const callDoctorByCategory = category => {
+    Firebase.database()
+      .ref('doctors/')
+      .orderByChild('category')
+      .equalTo(category)
+      .once('value')
+      .then(res => {
+        if (res.val()) {
+          const oldData = res.val();
+          const data = [];
+          Object.keys(oldData).map(key => {
+            console.log('Value: ', key);
+            data.push({
+              id: key,
+              data: oldData[key],
+            });
+          });
+          console.log('parse list doctors: ', data);
+          setListDoctor(data);
+        }
+      });
+  };
+
   return (
     <View style={styles.page}>
       <Header
         type="dark"
-        title="Pilih Dokter Anak"
+        title={`Pilih ${itemCategory.category}`}
         onPress={() => navigation.goBack()}></Header>
-      <List
-        onPress={() => navigation.navigate('Chatting')}
-        type="next"
-        list="list1"
-        name="Alexander Jannie"
-        desc="Wanita"></List>
-      <List
-        onPress={() => navigation.navigate('Chatting')}
-        type="next"
-        list="list2"
-        name="John McParker Steve"
-        desc="Pria"></List>
-      <List
-        onPress={() => navigation.navigate('Chatting')}
-        type="next"
-        list="list3"
-        name="John McParker Steve"
-        desc="Wanita"></List>
-      <List
-        onPress={() => navigation.navigate('Chatting')}
-        type="next"
-        list="list4"
-        name="Nairobi Putri Hayza"
-        desc="Wanita"></List>
-      <List type="next" list="list5" name="James Rivillia" desc="Pria"></List>
+      {listDoctor.map(doctor => {
+        return (
+          <List
+            type="next"
+            key={doctor.id}
+            name={doctor.data.fullName}
+            desc={doctor.data.gender}
+            photo={{uri: doctor.data.photo}}
+            onPress={() => navigation.navigate('Chatting')}></List>
+        );
+      })}
     </View>
   );
 };
