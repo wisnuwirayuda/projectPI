@@ -1,10 +1,55 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {Header, ChatItem, InputChat} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, getData} from '../../utils';
+import {Firebase} from '../../config';
 
 const Chatting = ({navigation, route}) => {
   const dataDoctor = route.params;
+  const [chatContent, setChatContent] = useState('');
+  const [user, setUser] = useState({});
+
+  useEffect(() => {
+    getData('user').then(res => {
+      console.log('User login: ', res);
+      setUser(res);
+    });
+  }, []);
+
+  const chatSend = () => {
+    const today = new Date();
+    const hour = today.getHours();
+    const minutes = today.getMinutes();
+    const year = today.getFullYear();
+    const month = today.getMonth() + 1;
+    const date = today.getDate();
+
+    const data = {
+      sendBy: user.uid,
+      chatDate: new Date().getTime(),
+      chatTime: `${hour}:${minutes} ${hour > 12 ? 'PM' : 'AM'}`,
+      chatContent: chatContent,
+    };
+    console.log('Data Chat: ', data);
+    console.log(
+      'URL Firebase: ',
+      `chatting/${user.uid}_${dataDoctor.data.uid}/allChat/${year}-${month}-${date}`,
+    );
+    setChatContent('');
+
+    // Kirim ke firebase
+    Firebase.database()
+      .ref(
+        `chatting/${user.uid}_${dataDoctor.data.uid}/allChat/${year}-${month}-${date}`,
+      )
+      .push(data)
+      .then(res => {
+        console.log(setChatContent(''));
+      })
+      .catch(err => {
+        console.log('Error: ', err);
+      });
+  };
 
   return (
     <View style={styles.page}>
@@ -27,9 +72,9 @@ const Chatting = ({navigation, route}) => {
         </ScrollView>
       </View>
       <InputChat
-        value="a"
-        onChangeText={() => alert('on change text')}
-        onButtonPress={() => alert('on button press')}></InputChat>
+        value={chatContent}
+        onChangeText={value => setChatContent(value)}
+        onButtonPress={chatSend}></InputChat>
     </View>
   );
 };
