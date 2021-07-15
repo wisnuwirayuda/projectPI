@@ -3,17 +3,15 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import {colors, fonts} from '../../../utils';
 import {DDoctor7} from '../../../assets';
 
-const Other = () => {
+const Other = ({text, date, photo}) => {
   return (
     <View style={styles.container}>
-      <Image source={DDoctor7} style={styles.ava}></Image>
+      <Image source={photo} style={styles.ava}></Image>
       <View style={styles.wrapperChat}>
         <View style={styles.chat}>
-          <Text style={styles.text}>
-            Ibu dokter, apakah memakan jeruk tiap hari itu buruk?
-          </Text>
+          <Text style={styles.text}>{text}</Text>
         </View>
-        <Text style={styles.date}>4.45 AM</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
     </View>
   );
@@ -31,6 +29,7 @@ const styles = StyleSheet.create({
   ava: {
     width: 30,
     height: 30,
+    borderRadius: 30 / 2,
     marginRight: 12,
   },
   wrapperChat: {

@@ -90,10 +90,12 @@ const Chatting = ({navigation, route}) => {
               <View key={chat.id}>
                 <Text style={styles.chatDate}>{chat.id}</Text>
                 {chat.data.map(itemChat => {
+                  const isMe = itemChat.data.sendBy === user.uid;
                   return (
                     <ChatItem
                       key={itemChat.id}
-                      isMe={itemChat.data.sendBy === user.uid}
+                      isMe={isMe}
+                      photo={isMe ? null : {uri: dataDoctor.data.photo}}
                       text={itemChat.data.chatContent}
                       date={itemChat.data.chatTime}></ChatItem>
                   );
