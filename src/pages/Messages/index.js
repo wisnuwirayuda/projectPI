@@ -1,28 +1,53 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {List} from '../../components';
-import {colors, fonts} from '../../utils';
+import {colors, fonts, getData} from '../../utils';
+import {Firebase} from '../../config';
 
 const Messages = ({navigation}) => {
+  const [user, setUser] = useState({});
+  const [historyChat, setHistoryChat] = useState([]);
+
+  useEffect(() => {
+    getDataUserFromLocal();
+    const urlHistory = `messages/${user.uid}`;
+    Firebase.database()
+      .ref(urlHistory)
+      .on('value', snapshot => {
+        console.log('Data History: ', snapshot.val());
+        if (snapshot.val()) {
+          const oldData = snapshot.val();
+          const data = [];
+          Object.keys(oldData).map(key => {
+            data.push({
+              id: key,
+              data: oldData[key],
+            });
+          });
+          setHistoryChat(data);
+        }
+      });
+  }, [user.uid]);
+
+  const getDataUserFromLocal = () => {
+    getData('user').then(res => {
+      setUser(res);
+    });
+  };
   return (
     <View style={styles.page}>
       <View style={styles.content}>
         <Text style={styles.tittle}>Messages</Text>
-        <List
-          list="list1"
-          name="Alexander Jannie"
-          desc="Baik ibu, terima kasih banyak atas wakt..."
-          onPress={() => navigation.navigate('Chatting')}></List>
-        <List
-          list="list2"
-          name="Nairobi Putri Hayza"
-          desc="Oh tentu saja tidak karena jeruk it..."
-          onPress={() => navigation.navigate('Chatting')}></List>
-        <List
-          list="list3"
-          name="John McParker Steve"
-          desc="Oke menurut pak dokter bagaimana unt..."
-          onPress={() => navigation.navigate('Chatting')}></List>
+        {historyChat.map(chat => {
+          return (
+            <List
+              list="list1"
+              key={chat.id}
+              name={chat.data.uidPartner}
+              desc={chat.data.lastContentChat}
+              onPress={() => navigation.navigate('Chatting')}></List>
+          );
+        })}
       </View>
     </View>
   );
