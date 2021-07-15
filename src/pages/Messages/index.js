@@ -41,18 +41,25 @@ const Messages = ({navigation}) => {
       setUser(res);
     });
   };
+
   return (
     <View style={styles.page}>
       <View style={styles.content}>
         <Text style={styles.tittle}>Messages</Text>
         {historyChat.map(chat => {
+          const dataDoctor = {
+            id: chat.detailDoctor.uid,
+            data: chat.detailDoctor,
+          };
           return (
             <List
               key={chat.id}
               name={chat.detailDoctor.fullName}
               photo={{uri: chat.detailDoctor.photo}}
               desc={chat.data.lastContentChat}
-              onPress={() => navigation.navigate('Chatting')}></List>
+              onPress={() =>
+                navigation.navigate('Chatting', dataDoctor)
+              }></List>
           );
         })}
       </View>
