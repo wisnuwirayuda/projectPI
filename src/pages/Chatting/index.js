@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import {Header, ChatItem, InputChat} from '../../components';
-import {colors, fonts, getData} from '../../utils';
+import {colors, fonts, getChatTime, getData, setDateChat} from '../../utils';
 import {Firebase} from '../../config';
 
 const Chatting = ({navigation, route}) => {
@@ -18,30 +18,20 @@ const Chatting = ({navigation, route}) => {
 
   const chatSend = () => {
     const today = new Date();
-    const hour = today.getHours();
-    const minutes = today.getMinutes();
-    const year = today.getFullYear();
-    const month = today.getMonth() + 1;
-    const date = today.getDate();
-
     const data = {
       sendBy: user.uid,
-      chatDate: new Date().getTime(),
-      chatTime: `${hour}:${minutes} ${hour > 12 ? 'PM' : 'AM'}`,
+      chatDate: today.getTime(),
+      chatTime: getChatTime(today),
       chatContent: chatContent,
     };
-    console.log('Data Chat: ', data);
-    console.log(
-      'URL Firebase: ',
-      `chatting/${user.uid}_${dataDoctor.data.uid}/allChat/${year}-${month}-${date}`,
-    );
+
+    const chatID = `${user.uid}_${dataDoctor.data.uid}`;
+    const urlFirebase = `chatting/${chatID}/allChat/${setDateChat(today)}`;
+
     setChatContent('');
 
-    // Kirim ke firebase
     Firebase.database()
-      .ref(
-        `chatting/${user.uid}_${dataDoctor.data.uid}/allChat/${year}-${month}-${date}`,
-      )
+      .ref(urlFirebase)
       .push(data)
       .then(res => {
         console.log(setChatContent(''));
