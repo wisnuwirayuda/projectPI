@@ -8,13 +8,47 @@ const Chatting = ({navigation, route}) => {
   const dataDoctor = route.params;
   const [chatContent, setChatContent] = useState('');
   const [user, setUser] = useState({});
+  const [chatData, setChatData] = useState([]);
 
   useEffect(() => {
+    getDataUserFromLocal();
+    const chatID = `${user.uid}_${dataDoctor.data.uid}`;
+    const urlFirebase = `chatting/${chatID}/allChat/`;
+    Firebase.database()
+      .ref(urlFirebase)
+      .on('value', snapshot => {
+        if (snapshot.val()) {
+          const dataSnapshot = snapshot.val();
+          console.log('Nilai Snapshot: ', dataSnapshot);
+          const allDataChat = [];
+          Object.keys(dataSnapshot).map(key => {
+            const dataChat = dataSnapshot[key];
+            const newDataChat = [];
+
+            Object.keys(dataChat).map(itemChat => {
+              newDataChat.push({
+                id: itemChat,
+                data: dataChat[itemChat],
+              });
+            });
+
+            allDataChat.push({
+              id: key,
+              data: newDataChat,
+            });
+          });
+          console.log('All Data Chat: ', allDataChat);
+          setChatData(allDataChat);
+        }
+      });
+  }, [dataDoctor.data.uid, user.uid]);
+
+  const getDataUserFromLocal = () => {
     getData('user').then(res => {
       console.log('User login: ', res);
       setUser(res);
     });
-  }, []);
+  };
 
   const chatSend = () => {
     const today = new Date();
@@ -51,13 +85,22 @@ const Chatting = ({navigation, route}) => {
         onPress={() => navigation.goBack()}></Header>
       <View style={styles.wrapperChat}>
         <ScrollView showsVerticalScrollIndicator={false}>
-          <Text style={styles.chatDate}>Senin, 21 Maret, 2020</Text>
-          <ChatItem isMe></ChatItem>
-          <ChatItem></ChatItem>
-          <ChatItem isMe></ChatItem>
-          <ChatItem></ChatItem>
-          <ChatItem isMe></ChatItem>
-          <ChatItem></ChatItem>
+          {chatData.map(chat => {
+            return (
+              <View key={chat.id}>
+                <Text style={styles.chatDate}>{chat.id}</Text>
+                {chat.data.map(itemChat => {
+                  return (
+                    <ChatItem
+                      key={itemChat.id}
+                      isMe={itemChat.data.sendBy === user.uid}
+                      text={itemChat.data.chatContent}
+                      date={itemChat.data.chatTime}></ChatItem>
+                  );
+                })}
+              </View>
+            );
+          })}
           {/* <ChatItem></ChatItem> */}
         </ScrollView>
       </View>

@@ -9,7 +9,7 @@ import {LogBox} from 'react-native';
 
 const MainApp = () => {
   const stateGlobal = useSelector(state => state);
-  LogBox.ignoreLogs(['Setting a time']);
+  LogBox.ignoreLogs(['Setting a time'], ['Remote debugger']);
   return (
     <>
       <NavigationContainer>
