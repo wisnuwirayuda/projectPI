@@ -10,23 +10,30 @@ const Messages = ({navigation}) => {
 
   useEffect(() => {
     getDataUserFromLocal();
+    const rootDB = Firebase.database().ref();
     const urlHistory = `messages/${user.uid}`;
-    Firebase.database()
-      .ref(urlHistory)
-      .on('value', snapshot => {
-        console.log('Data History: ', snapshot.val());
-        if (snapshot.val()) {
-          const oldData = snapshot.val();
-          const data = [];
-          Object.keys(oldData).map(key => {
-            data.push({
-              id: key,
-              data: oldData[key],
-            });
+    const messagesDB = rootDB.child(urlHistory);
+
+    messagesDB.on('value', async snapshot => {
+      console.log('Data History: ', snapshot.val());
+      if (snapshot.val()) {
+        const oldData = snapshot.val();
+        const data = [];
+
+        const promises = await Object.keys(oldData).map(async key => {
+          const urlUidDoctor = `doctors/${oldData[key].uidPartner}`;
+          const detailDoctor = await rootDB.child(urlUidDoctor).once('value');
+
+          data.push({
+            id: key,
+            detailDoctor: detailDoctor.val(),
+            data: oldData[key],
           });
-          setHistoryChat(data);
-        }
-      });
+        });
+        await Promise.all(promises);
+        setHistoryChat(data);
+      }
+    });
   }, [user.uid]);
 
   const getDataUserFromLocal = () => {
@@ -41,9 +48,9 @@ const Messages = ({navigation}) => {
         {historyChat.map(chat => {
           return (
             <List
-              list="list1"
               key={chat.id}
-              name={chat.data.uidPartner}
+              name={chat.detailDoctor.fullName}
+              photo={{uri: chat.detailDoctor.photo}}
               desc={chat.data.lastContentChat}
               onPress={() => navigation.navigate('Chatting')}></List>
           );

@@ -15,22 +15,6 @@ import {
 import {colors, fonts} from '../../../utils';
 
 const List = ({name, desc, type, onPress, icon, photo, list}) => {
-  const Photo = () => {
-    if (list === 'list1') {
-      return <Image source={DDoctor4} style={styles.avatar}></Image>;
-    } else if (list === 'list2') {
-      return <Image source={DDoctor5} style={styles.avatar}></Image>;
-    } else if (list === 'list3') {
-      return <Image source={DDoctor6} style={styles.avatar}></Image>;
-    } else if (list === 'list4') {
-      return <Image source={DDoctor7} style={styles.avatar}></Image>;
-    } else if (list === 'list5') {
-      return <Image source={DDoctor8} style={styles.avatar}></Image>;
-    } else {
-      return null;
-    }
-  };
-
   const Icons = () => {
     if (icon === 'edit-profile') {
       return <IEditProfile></IEditProfile>;
@@ -47,7 +31,7 @@ const List = ({name, desc, type, onPress, icon, photo, list}) => {
 
   return (
     <TouchableOpacity style={styles.container} onPress={onPress}>
-      {icon ? <Icons></Icons> : <Photo></Photo>}
+      {icon ? <Icons></Icons> : null}
       {photo && <Image source={photo} style={styles.avatar}></Image>}
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
