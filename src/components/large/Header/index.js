@@ -41,6 +41,7 @@ const styles = StyleSheet.create({
   }),
   title: type => ({
     textAlign: 'center',
+    textTransform: 'capitalize',
     flex: 1,
     color: type === 'dark' ? colors.white : colors.black,
     fontSize: 20,

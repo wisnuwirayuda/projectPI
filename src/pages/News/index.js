@@ -8,6 +8,7 @@ import {Firebase} from '../../config';
 
 const News = () => {
   const [news, setNews] = useState([]);
+  const [newsHorizontal, setNewsHorizontal] = useState([]);
 
   useEffect(() => {
     Firebase.database()
@@ -18,6 +19,7 @@ const News = () => {
           const data = res.val();
           const filterData = data.filter(elemen => elemen != null);
           setNews(filterData);
+          setNewsHorizontal(filterData);
         }
       })
       .catch(err => {
@@ -34,9 +36,15 @@ const News = () => {
             <ScrollView horizontal showsHorizontalScrollIndicator={false}>
               <View style={styles.content}>
                 <Gap width={16}></Gap>
-                <NewsItemHorizontal></NewsItemHorizontal>
-                <NewsItemHorizontal></NewsItemHorizontal>
-                <NewsItemHorizontal></NewsItemHorizontal>
+                {newsHorizontal.map(item => {
+                  return (
+                    <NewsItemHorizontal
+                      key={item.id}
+                      title={item.title}
+                      pic={item.pic}
+                      date={item.date}></NewsItemHorizontal>
+                  );
+                })}
               </View>
             </ScrollView>
           </View>

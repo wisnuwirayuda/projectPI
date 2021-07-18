@@ -7,7 +7,7 @@ import {Firebase} from '../../config';
 import {colors, fonts, showError, storeData} from '../../utils';
 
 const UploadPhoto = ({navigation, route}) => {
-  const {fullname, occupation, uid} = route.params;
+  const {fullname, profession, uid} = route.params;
 
   const [hasPhoto, setHasPhoto] = useState(false);
   const [photo, setPhoto] = useState(ILPhotoNull);
@@ -64,7 +64,7 @@ const UploadPhoto = ({navigation, route}) => {
           <Gap height={26}></Gap>
           <Text style={styles.name}>{fullname}</Text>
           <Gap height={4}></Gap>
-          <Text style={styles.profession}>{occupation}</Text>
+          <Text style={styles.profession}>{profession}</Text>
         </View>
         <View>
           <Button

@@ -6,7 +6,7 @@ import {colors, fonts, getData} from '../../../utils';
 const HomeProfile = ({onPress}) => {
   const [profile, setProfile] = useState({
     fullname: '',
-    occupation: '',
+    profession: '',
     photo: ILPhotoNull,
   });
 
@@ -25,7 +25,7 @@ const HomeProfile = ({onPress}) => {
       <Image source={profile.photo} style={styles.ava} />
       <View style={styles.info}>
         <Text style={styles.name}>{profile.fullname}</Text>
-        <Text style={styles.job}>{profile.occupation}</Text>
+        <Text style={styles.job}>{profile.profession}</Text>
       </View>
     </TouchableOpacity>
   );

@@ -10,7 +10,7 @@ const UpdateProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
     fullname: '',
     email: '',
-    occupation: '',
+    profession: '',
     phonenumber: '',
   });
   const [password, setPassword] = useState('');
@@ -108,9 +108,9 @@ const UpdateProfile = ({navigation}) => {
             onChangeText={value => changeText('fullname', value)}></Input>
           <Gap height={24}></Gap>
           <Input
-            label="Occupation"
-            value={profile.occupation}
-            onChangeText={value => changeText('occupation', value)}></Input>
+            label="Profession"
+            value={profile.profession}
+            onChangeText={value => changeText('profession', value)}></Input>
           <Gap height={24}></Gap>
           <Input
             label="Phone Number"

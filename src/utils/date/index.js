@@ -9,6 +9,16 @@ export const setDateChat = oldDate => {
   const year = oldDate.getFullYear();
   const month = oldDate.getMonth() + 1;
   const date = oldDate.getDate();
+  const day = [
+    'Sunday',
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+  ];
+  const result = day[oldDate.getDay()];
 
-  return `${year}-${month}-${date}`;
+  return `${result}, ${date} - ${month} - ${year}`;
 };

@@ -8,7 +8,7 @@ const Register = ({navigation}) => {
   const [form, setForm] = useForm({
     fullname: '',
     phonenumber: '',
-    occupation: '',
+    profession: '',
     email: '',
     password: '',
   });
@@ -25,7 +25,7 @@ const Register = ({navigation}) => {
         const data = {
           fullname: form.fullname,
           phonenumber: form.phonenumber,
-          occupation: form.occupation,
+          profession: form.profession,
           email: form.email,
           uid: user.uid,
         };
@@ -54,7 +54,8 @@ const Register = ({navigation}) => {
               label="Full Name"
               placeholder="Enter your full name"
               value={form.fullname}
-              onChangeText={value => setForm('fullname', value)}></Input>
+              onChangeText={value => setForm('fullname', value)}
+              style={styles.fullname}></Input>
             <Gap height={24}></Gap>
             <Input
               label="Phone Number"
@@ -63,10 +64,10 @@ const Register = ({navigation}) => {
               onChangeText={value => setForm('phonenumber', value)}></Input>
             <Gap height={24}></Gap>
             <Input
-              label="Occupation"
-              placeholder="Enter your occupation"
-              value={form.occupation}
-              onChangeText={value => setForm('occupation', value)}></Input>
+              label="Profession"
+              placeholder="Enter your profession"
+              value={form.profession}
+              onChangeText={value => setForm('profession', value)}></Input>
             <Gap height={24}></Gap>
             <Input
               label="Email"
@@ -99,5 +100,8 @@ const styles = StyleSheet.create({
   content: {
     padding: 40,
     paddingTop: 0,
+  },
+  fullname: {
+    textTransform: 'capitalize',
   },
 });

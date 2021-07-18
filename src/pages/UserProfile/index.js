@@ -8,7 +8,7 @@ import {colors, getData, showError} from '../../utils';
 const UserProfile = ({navigation}) => {
   const [profile, setProfile] = useState({
     fullname: 'user',
-    occupation: 'user',
+    profession: 'user',
     photo: ILPhotoNull,
   });
 
@@ -37,7 +37,7 @@ const UserProfile = ({navigation}) => {
       <Gap height={10}></Gap>
       <Profile
         name={profile.fullname}
-        desc={profile.occupation}
+        desc={profile.profession}
         isPhoto={profile.photo}></Profile>
       <Gap height={14}></Gap>
       <List
@@ -55,13 +55,8 @@ const UserProfile = ({navigation}) => {
         name="Give Us Rate"
         desc="On Google Play Store"
         type="next"
-        icon="help-profile"></List>
-      <List
-        name="Sign Out"
-        desc="Read our guidelines"
-        type="next"
-        icon="rate-profile"
-        onPress={signOut}></List>
+        icon="rate-profile"></List>
+      <List name="Sign Out" type="next" icon="logout" onPress={signOut}></List>
     </View>
   );
 };

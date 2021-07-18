@@ -38,6 +38,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     color: colors.white,
     textAlign: 'center',
+    textTransform: 'capitalize',
   },
   position: {
     fontFamily: fonts.primary[400],

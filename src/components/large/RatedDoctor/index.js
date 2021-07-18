@@ -56,6 +56,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.primary[600],
     color: colors.text.primary,
     marginBottom: 2,
+    textTransform: 'capitalize',
   },
   categoryInfo: {
     fontSize: 12,

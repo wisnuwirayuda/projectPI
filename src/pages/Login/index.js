@@ -23,6 +23,10 @@ const Login = ({navigation}) => {
   const login = () => {
     dispatch({type: 'SET_LOADING', value: true});
 
+    loginUser();
+  };
+
+  const loginUser = () => {
     Firebase.auth()
       .signInWithEmailAndPassword(form.email, form.password)
       .then(res => {

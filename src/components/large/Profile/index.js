@@ -31,9 +31,9 @@ const Profile = ({name, desc, isRemove, isPhoto, onPress, gender}) => {
         <TouchableOpacity style={styles.borderProfile} onPress={onPress}>
           {isPhoto && <Image source={isPhoto} style={styles.ava}></Image>}
           {!isPhoto && <Image source={DUser} style={styles.ava}></Image>}
-          {isFemaleDoctor && (
+          {/* {isFemaleDoctor && (
             <IFemaleDoctor style={styles.icon}></IFemaleDoctor>
-          )}
+          )} */}
           {isRemove && <IRemovePhoto style={styles.icon}></IRemovePhoto>}
         </TouchableOpacity>
       )}

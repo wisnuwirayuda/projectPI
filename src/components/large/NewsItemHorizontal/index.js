@@ -3,15 +3,13 @@ import {View, Text, StyleSheet, Image} from 'react-native';
 import {DNews1, DNews2, DNews3} from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
-const NewsItemHorizontal = () => {
+const NewsItemHorizontal = ({title, pic, date}) => {
   return (
     <View style={styles.container}>
-      <Image source={DNews1} style={styles.photo}></Image>
+      <Image source={{uri: pic}} style={styles.photo}></Image>
       <View style={styles.wrapperSection}>
-        <Text style={styles.tittle}>
-          Eating a diet rich in fruit and vegetables daily lowers risk
-        </Text>
-        <Text style={styles.date}>Today</Text>
+        <Text style={styles.tittle}>{title}</Text>
+        <Text style={styles.date}>{date}</Text>
       </View>
     </View>
   );

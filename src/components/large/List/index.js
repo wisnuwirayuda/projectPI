@@ -11,6 +11,7 @@ import {
   IRateProfile,
   IHelpProfile,
   ILanguageProfile,
+  ILogout,
 } from '../../../assets';
 import {colors, fonts} from '../../../utils';
 
@@ -24,6 +25,8 @@ const List = ({name, desc, type, onPress, icon, photo, list}) => {
       return <IHelpProfile></IHelpProfile>;
     } else if (icon === 'rate-profile') {
       return <IRateProfile></IRateProfile>;
+    } else if (icon === 'logout') {
+      return <ILogout></ILogout>;
     } else {
       return null;
     }
@@ -35,7 +38,7 @@ const List = ({name, desc, type, onPress, icon, photo, list}) => {
       {photo && <Image source={photo} style={styles.avatar}></Image>}
       <View style={styles.info}>
         <Text style={styles.name}>{name}</Text>
-        <Text style={styles.chat}>{desc}</Text>
+        {desc && <Text style={styles.chat}>{desc}</Text>}
       </View>
       {type === 'next' && <INext></INext>}
     </TouchableOpacity>
@@ -66,6 +69,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: fonts.primary[400],
     color: colors.text.primary,
+    textTransform: 'capitalize',
   },
   chat: {
     fontSize: 12,

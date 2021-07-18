@@ -45,7 +45,7 @@ const Doctor = ({navigation}) => {
     Firebase.database()
       .ref('doctors/')
       .orderByChild('rate')
-      .limitToLast(2)
+      .limitToLast(4)
       .once('value')
       .then(res => {
         // console.log('top rated doctors ', res.val());

@@ -18,6 +18,7 @@ import ILanguageProfile from './language-profile.svg';
 import IRateProfile from './rate-profile.svg';
 import IMaleDoctor from './male-doctor.svg';
 import IFemaleDoctor from './female-doctor.svg';
+import ILogout from './logout.svg';
 
 export {
   IBackDark,
@@ -40,4 +41,5 @@ export {
   IRateProfile,
   IMaleDoctor,
   IFemaleDoctor,
+  ILogout,
 };
